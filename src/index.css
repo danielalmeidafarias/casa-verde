@@ -1,10 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Elsie+Swash+Caps:wght@400;900&display=swap');
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
 :root {
  
   --yellow: #FFCB47;
-  --elsie: 'Elsie Swash Caps', serif;
+  --elsie: 'Elsie Swash Caps';
 
   font-family: 'Montserrat', sans-serif;
   line-height: 1.5;
