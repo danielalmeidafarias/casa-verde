@@ -19,6 +19,7 @@ const Li = styled.li`
   gap: 10px;
 `
 
+
 const MinhaPlantaItem = ({ children }: Props) => {
   return (  
     <Li>

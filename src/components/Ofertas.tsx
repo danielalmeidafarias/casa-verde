@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { H1, P } from "./SignInBox";
+import { H1, P as StyledP } from "./SignInBox";
 import OfertaProduct, { IProduct } from "./OfertaProduct";
 
 import Product1 from '../assets/produto-01 1.png'
@@ -14,14 +14,21 @@ const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin-bottom: 40px;
   margin-top: 40px;
+  gap: 20px;
 `
 
 const GridOfertas = styled.div`
   display: grid;
   grid-template-columns: 300px 300px 300px;
   gap: 15px;
+`
+
+const P = styled(StyledP)`
+  width: auto;
+  font-size: 20px;
 `
 
 const Ofertas = () => {
@@ -61,7 +68,7 @@ const Ofertas = () => {
 
   return (
     <StyledSection>
-
+      <P>Conheça nossas ofertas</P>
       <H1>Ofertas</H1>
       <GridOfertas>
         {

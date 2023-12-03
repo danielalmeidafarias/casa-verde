@@ -7,6 +7,7 @@ import SignInBox from "./SignInBox";
 const StyledHome = styled.div`
   height: 100vh;
   position: relative;
+  padding-top: var(--padding-top);
 `
 
 const Home = () => {

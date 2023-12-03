@@ -12,6 +12,7 @@ const Nav = styled.nav<{ $isOpen?: boolean }>`
   position: absolute;
   top: 0;
   transition: all ease-in 0.1s;
+  padding-top: 10px;
 
 
   @media screen and (max-width: 768px) {
@@ -44,7 +45,7 @@ const Ul = styled.ul`
 
 const Li = styled.li`
   font-weight: 600;
-  font-size: 12px;
+  font-size: 14px;
 `
 
 const Img = styled.img`

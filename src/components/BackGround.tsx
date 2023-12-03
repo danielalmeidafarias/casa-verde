@@ -14,7 +14,7 @@ const StyledHero = styled.img`
   height: 100%;
   position: absolute;
   bottom: 0px;
-  left: 40vw;
+  right: 20%;
 `
 
 const StyledVector = styled.img`

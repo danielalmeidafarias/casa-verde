@@ -9,7 +9,7 @@ const StyledMinhaPlanta = styled(StyledBox)`
   height: 350px;
 `
 const StyledSection = styled.section`
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: center;
 `

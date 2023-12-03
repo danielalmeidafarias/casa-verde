@@ -4,7 +4,6 @@ import MinhaPlanta from "./components/MinhaPlanta"
 import Ofertas from "./components/Ofertas"
 
 const StyledApp = styled.div`
-
 `
 
 function App() {
