@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const StyledForm = styled.form`
@@ -14,6 +15,14 @@ const StyledButton = styled.button`
   color: white;
   font-weight: 300;
   font-size: 16px;
+  cursor: pointer;
+
+  transition: all ease-in-out 100ms;
+
+  &:hover {
+    box-shadow: 0px 0px 20px -1px var(--yellow);
+  }
+  
 `
 
 const StyledInput = styled.input`
@@ -23,16 +32,45 @@ const StyledInput = styled.input`
   padding-left: 20px;
   color: #727171;
   box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.1);
+  outline: none;
 
 `
 
 const Input = () => {
+  const [email, setEmail] = useState<string>('')
+
+  const emailSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault()
+
+    const regularExpressionEmail = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)
+    const isValid = regularExpressionEmail.test(email)
+
+    console.log(isValid)
+
+    if(!isValid) {
+      window.alert('Digite um email válido')
+    } 
+    
+    if(email && isValid) {
+      window.alert(`Obrigado pela sua assinatura, você receberá nossas novidades no email ${email}`)
+      setEmail('')
+    }
+
+
+  }
+
   return (  
     <StyledForm>
       <StyledInput 
+      required
+      value={email}
+      onChange={e => setEmail(e.target.value)}
       placeholder={`Insira seu e-mail`}
-      type="text" />
-      <StyledButton>Assinar newsletter</StyledButton>
+      type="email" />
+      <StyledButton
+      onClick={(e) => emailSubmit(e)}
+      type="submit"
+      >Assinar newsletter</StyledButton>
     </StyledForm>
   );
 }

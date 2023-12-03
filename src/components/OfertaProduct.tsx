@@ -13,6 +13,11 @@ const StyledBox = styled(Box)`
   height: 150px;
   display: flex;
   position: relative;
+  cursor: pointer;
+
+  &:hover {
+    
+  }
 `
 
 const H1 = styled(StyledH1)`

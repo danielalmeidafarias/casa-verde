@@ -6,7 +6,7 @@ import MinhaPlantaItem from "./MinhaPlantaItem";
 
 const StyledMinhaPlanta = styled(StyledBox)`
   display: flex;
-  height: 350px;
+  height: 400px;
 `
 const StyledSection = styled.section`
   width: 100%;
@@ -15,6 +15,7 @@ const StyledSection = styled.section`
 `
 
 const RightDiv = styled.div`
+  width: 300px;
   display: flex;
   flex-direction: column;
   padding: 10px;

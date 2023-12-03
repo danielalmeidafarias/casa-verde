@@ -33,7 +33,6 @@ const Ul = styled.ul`
   padding: 0;
   margin: 0;
   gap: 10px;
-  color: #313131;
 
   @media screen and (max-width: 768px) {
     flex-direction: column;
@@ -46,6 +45,13 @@ const Ul = styled.ul`
 const Li = styled.li`
   font-weight: 600;
   font-size: 14px;
+  color: #4e4e4e;
+  cursor: pointer;
+
+  &:hover {
+  color: #010101;
+  text-decoration: underline;
+  }
 `
 
 const Img = styled.img`
@@ -67,13 +73,13 @@ const Menu = () => {
         <Img src={Logo} alt="Logo Casa Verde" />
         <Ul>
           <Li>Como Fazer</Li>
-          <Li>/</Li>
+          <span>/</span>
           <Li>Ofertas</Li>
-          <Li>/</Li>
+          <span>/</span>
           <Li>Depoimentos</Li>
-          <Li>/</Li>
+          <span>/</span>
           <Li>Vídeos</Li>
-          <Li>/</Li>
+          <span>/</span>
           <Li>Meu Carrinho</Li>
         </Ul>
       </Nav>

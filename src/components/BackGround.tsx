@@ -3,18 +3,18 @@ import Hero from '../assets/imagem-hero 1.png'
 import Vector from '../assets/Vector.png'
 
 const StyledBackGround = styled.div`
-  width: 100vw;
+  width: 50vw;
   height: 100vh;
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
 `
 
 const StyledHero = styled.img`
   height: 100%;
   position: absolute;
   bottom: 0px;
-  right: 20%;
+  right: 450px;
 `
 
 const StyledVector = styled.img`
