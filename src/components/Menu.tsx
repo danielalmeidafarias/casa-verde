@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 import Logo from '../assets/logo.png'
-import HamburgerButton from './HamburgerButton';
-import { useState } from 'react';
 
 const Nav = styled.nav<{ $isOpen?: boolean }>`
   display: flex;
@@ -61,15 +59,9 @@ const Img = styled.img`
 `
 
 const Menu = () => {
-  const [isOpen, setIsOpen] = useState(false)
-
   return (
     <div>
-      <Nav $isOpen={isOpen}>
-        <HamburgerButton
-          $isOpen={isOpen}
-          onClick={() => setIsOpen(!isOpen)}
-        />
+      <Nav>
         <Img src={Logo} alt="Logo Casa Verde" />
         <Ul>
           <Li>Como Fazer</Li>

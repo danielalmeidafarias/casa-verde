@@ -32,39 +32,7 @@ const P = styled(StyledP)`
 `
 
 const Ofertas = () => {
-  const products: IProduct[] = [
-    {
-      imgSrc: Product1,
-      price: '20,00',
-      title: 'Ajuda reptans'
-    },
-    {
-      imgSrc: Product2,
-      price: '20,00',
-      title: 'Cordyline iruticosa'
-    },
-    {
-      imgSrc: Product3,
-      price: '20,00',
-      title: 'Crassula ovata'
-    },
-    {
-      imgSrc: Product4,
-      price: '20,00',
-      title: 'Cyperus rotundus'
-    },
-
-    {
-      imgSrc: Product5,
-      price: '20,00',
-      title: 'Delairea odorata'
-    },
-    {
-      imgSrc: Product6,
-      price: '20,00',
-      title: 'Datura Metel'
-    },
-  ]
+  const products: IProduct[] = []
 
   return (
     <StyledSection>
@@ -74,8 +42,9 @@ const Ofertas = () => {
         {
           products.map(product => (
             <OfertaProduct
-              title={product.title}
-              imgSrc={product.imgSrc}
+              id={product.id}
+              name={product.name}
+              image={product.image}
               price={product.price}
             />
           ))

@@ -4,9 +4,11 @@ import { H1 as StyledH1, P as StyledP } from "./SignInBox";
 import { FaLongArrowAltRight } from "react-icons/fa";
 
 export interface IProduct {
-  title: string
-  price: string
-  imgSrc: string
+  id: number
+  name: string
+  price: number
+  image: string
+  onSale?: boolean
 }
 
 const StyledBox = styled(Box)`
@@ -14,10 +16,6 @@ const StyledBox = styled(Box)`
   display: flex;
   position: relative;
   cursor: pointer;
-
-  &:hover {
-    
-  }
 `
 
 const H1 = styled(StyledH1)`
@@ -34,6 +32,13 @@ const StyledButton = styled.button`
   gap: 10px;
   align-items: center;
   border: none;
+  cursor: pointer;
+  transition: all ease-in-out 100ms;
+
+  &:hover {
+    text-decoration: underline;
+    color: #daa62d;
+  }
 `
 
 const RightDiv = styled.div`
@@ -53,13 +58,13 @@ const StyledImage = styled.img`
   height: 100%;
 `
 
-const OfertaProduct = ({ title, price, imgSrc }: IProduct) => {
+const OfertaProduct = ({ name, price, image, onSale }: IProduct) => {
   return (  
     <StyledBox>
-      <StyledImage src={imgSrc} />
+      <StyledImage src={image} />
       <RightDiv>
-        <H1>{title}</H1>
-        <P>R$ {price}</P>
+        <H1>{name}</H1>
+        <P>R$ {price}, 00</P>
         <StyledButton>
           Comprar
           <FaLongArrowAltRight size={20}/>

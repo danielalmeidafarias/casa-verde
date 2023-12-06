@@ -45,8 +45,6 @@ const Input = () => {
     const regularExpressionEmail = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)
     const isValid = regularExpressionEmail.test(email)
 
-    console.log(isValid)
-
     if(!isValid) {
       window.alert('Digite um email válido')
     } 
