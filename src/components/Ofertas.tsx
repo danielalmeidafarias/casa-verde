@@ -8,6 +8,8 @@ import Product3 from '../assets/produto-03 1.png'
 import Product4 from '../assets/produto-04 1.png'
 import Product5 from '../assets/produto-05 1.png'
 import Product6 from '../assets/produto-06 1.png'
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const StyledSection = styled.section`
   width: 100vw;
@@ -32,7 +34,20 @@ const P = styled(StyledP)`
 `
 
 const Ofertas = () => {
-  const products: IProduct[] = []
+  const [products, setProducts] = useState<IProduct[]>([])
+
+  const getPlantas = async () => {
+    await axios.get(`http://localhost:3000/api/plantas`)
+      .then(response => {
+        setProducts(response.data)
+      })
+  }
+
+  useEffect(() => {
+    
+    getPlantas()
+
+  })
 
   return (
     <StyledSection>

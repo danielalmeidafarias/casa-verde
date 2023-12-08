@@ -2,14 +2,18 @@ import axios from "axios";
 import { IProduct } from "./OfertaProduct";
 import { useEffect, useState } from "react";
 import ItemAdmin from "./ItemAdmin";
+import { TextField, Button, Checkbox, FormControlLabel, Table, TableHead, TableRow, TableCell, TableBody, Hidden } from "@mui/material";
+import { FaCloudUploadAlt } from "react-icons/fa"
+
+type Base64<imageType extends string> = `data:image/${imageType};base64${string}`
 
 const Admin = () => {
   const [plantas, setPlantas] = useState<IProduct[]>();
 
-  const [nome, setNome] = useState<string>();
-  const [preco, setPreco] = useState<number>();
-  const [onSale, setOnSale] = useState<boolean>();
-  const [imagem, setImagem] = useState<string>();
+  const [nome, setNome] = useState<string>('');
+  const [preco, setPreco] = useState<number>(0);
+  const [onSale, setOnSale] = useState<boolean>(false);
+  const [imagem, setImagem] = useState<string | ArrayBuffer | null>('');
 
   const getPlantas = async () => {
     await axios.get(`http://localhost:3000/api/plantas`)
@@ -18,17 +22,22 @@ const Admin = () => {
       })
   }
 
-  useEffect(() => {
-    
-    getPlantas()
-
-  }, [nome])
-
-
-
   const addPlanta = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 
     e.preventDefault()
+
+    if(!nome) {
+      window.alert('Nome faltando')
+      return
+    } else if (!preco) {
+      window.alert('Preço faltando')
+      return
+
+    } else if(!imagem) {
+      window.alert('Imagem faltando')
+      return
+
+    }
 
     await axios.post<IProduct>(`http://localhost:3000/api/plantas`, {
       name: nome,
@@ -36,54 +45,126 @@ const Admin = () => {
       price: preco,
       onSale: onSale
     }).then((response) => {
-      console.log(response.status)
-
-      if(response.status === 200) {
+      if (response.status === 200) {
         window.alert('Produto adicionado com sucesso!')
+
+        setNome('')
+        setPreco(0)
+        setImagem('')
+
         getPlantas()
       }
     }).catch(e => {
-      if(e.response.status === 409) {
+      if (e.response.status === 409) {
         window.alert('Produto ja adicionado!')
       }
     })
   }
 
+  const getImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if(e.target.files) {
+
+      const file = e.target.files[0]
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        console.log(reader.result)
+        setImagem(reader.result)
+      }
+      reader.readAsDataURL(file)
+    } else return
+  }
+
+  useEffect(() => {
+
+    getPlantas()
+
+  }, [])
+
   return (
     <div>
-      <h1>Administração</h1>
       <form action="">
-        <input placeholder="Nome" type="text"
-          value={nome}
-          onChange={e => setNome(e.target.value)}
-        />
-        <input placeholder="Preco" type="text"
-          value={preco}
-          onChange={e => setPreco(Number(e.target.value))}
-        />
-        <input placeholder="Imagem" type="text"
-          value={imagem}
-          onChange={e => setImagem(e.target.value)}
-        />
-        <input placeholder="Em promoção" type="checkbox"
-          onChange={e => setOnSale(e.target.checked)}
-        />
-        <button
-          onClick={(e) => addPlanta(e)}
-          type="submit"
-        >Adiconar</button>
+        <TableRow>
+          <TableCell>
+            <TextField
+              required
+              variant="filled"
+              onChange={e => setNome(e.target.value)}
+              value={nome}
+              label="Nome" />
+          </TableCell>
+
+          <TableCell>
+            <TextField
+              required
+              label="Preço"
+              variant="filled"
+              value={preco}
+              onChange={e => setPreco(Number(e.target.value))}
+            />
+          </TableCell>
+
+          <TableCell>
+            <Button component="label" variant="contained" startIcon={<FaCloudUploadAlt />}>
+              Escolher Imagem
+              <Hidden children={
+                <input
+                  required
+                  style={{ display: 'none' }}
+                  type="file"
+                  onChange={e => getImage(e)}
+                  // value={imagem}
+                />
+              } />
+
+            </Button>
+          </TableCell>
+
+          <TableCell>
+            <FormControlLabel label="Promoção?" control={
+              <Checkbox
+                onChange={e => setOnSale(e.target.checked)}
+              />
+            } />
+          </TableCell>
+
+          <TableCell>
+            <Button
+              type="submit"
+              variant="contained"
+              onClick={(e) => addPlanta(e)}
+            >Adiconar</Button>
+          </TableCell>
+        </TableRow>
+
       </form>
-      {plantas?.map(planta => (
-        <ItemAdmin 
-        getPlantas={getPlantas}
-        key={planta.id}
-        id={planta.id}
-        name={planta.name}
-        price={planta.price}
-        onSale={planta.onSale}
-        image={planta.image}
-        />
-      ))}
+
+      <Table sx={{ width: '90%' }}>
+        <TableHead>
+          <TableRow>
+            <TableCell>Nome</TableCell>
+            <TableCell>Preço</TableCell>
+            <TableCell>Promoção</TableCell>
+            <TableCell>Imagem</TableCell>
+
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {plantas?.map(planta => (
+            <ItemAdmin
+              getPlantas={getPlantas}
+              key={planta.id}
+              id={planta.id}
+              name={planta.name}
+              price={planta.price}
+              onSale={planta.onSale}
+              image={planta.image}
+            />
+          ))}
+        </TableBody>
+
+      </Table>
+
+
     </div>
   );
 }
