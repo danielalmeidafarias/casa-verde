@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { P } from "./SignInBox";
+import { P } from "../SignInBox/SignInBox";
 
 interface Props {
   children: React.ReactNode

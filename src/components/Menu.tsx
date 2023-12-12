@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import Logo from '../assets/logo.png'
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Twirl as Hamburger } from 'hamburger-react'
 
 const Nav = styled.nav<{ $isOpen?: boolean }>`
   display: flex;
@@ -11,18 +14,22 @@ const Nav = styled.nav<{ $isOpen?: boolean }>`
   top: 0;
   transition: all ease-in 0.1s;
   padding-top: 10px;
+  box-shadow: 10px 0px 20px 2px rgba(62, 62, 62, 0.1);
+  padding-bottom: 10px;
 
-
-  @media screen and (max-width: 768px) {
-    /* transform: ${props => !props.$isOpen && 'translate(-100%, 0);'}; */
-    flex-direction: column;
-    justify-content: flex-start;
-    padding-top: 30%;
-    height: 100dvh;
-    gap: 50px;
-    background-color: inherit;
-
+  & > div {
+    @media screen and (min-width: 768px){
+      display: none;
+    }
   }
+
+  & > ul {
+    @media screen and (max-width: 768px){
+      display: none;
+    }
+  }
+
+
 `
 
 const Ul = styled.ul`
@@ -32,12 +39,6 @@ const Ul = styled.ul`
   margin: 0;
   gap: 10px;
 
-  @media screen and (max-width: 768px) {
-    flex-direction: column;
-    gap: 50px;
-    font-size: 2em;
-    text-align: center;
-  }
 `
 
 const Li = styled.li`
@@ -52,29 +53,40 @@ const Li = styled.li`
   }
 `
 
-const Img = styled.img`
-  @media screen and (max-width: 768px){
-    width: 60dvw;
+const StyledLink = styled(Link)`
+text-decoration: none;
+    font-weight: 600;
+  font-size: 14px;
+  color: #4e4e4e;
+  cursor: pointer;
+
+  &:hover {
+  color: #010101;
+  text-decoration: underline;
   }
 `
 
+
 const Menu = () => {
+  const [mobileIsOpen, setMobileIsOpen] = useState(false)
+
   return (
     <div>
-      <Nav>
-        <Img src={Logo} alt="Logo Casa Verde" />
+      <Nav $isOpen={mobileIsOpen}>
+        <>
+        <img src={Logo} alt="Logo Casa Verde" />
+        <Hamburger />
+        </>
+
         <Ul>
-          <Li>Como Fazer</Li>
+          <StyledLink to={'/'}>Como Fazer</StyledLink>
           <span>/</span>
-          <Li>Ofertas</Li>
-          <span>/</span>
-          <Li>Depoimentos</Li>
-          <span>/</span>
-          <Li>Vídeos</Li>
+          <StyledLink to={'/ofertas'}>Ofertas</StyledLink>
           <span>/</span>
           <Li>Meu Carrinho</Li>
         </Ul>
       </Nav>
+
     </div>
 
   );

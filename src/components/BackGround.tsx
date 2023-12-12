@@ -29,9 +29,6 @@ const StyledVector = styled.img`
   right: 0;
 `
 
-// Testar passar como prop a vw e assim fazer a postion variar inversamente
-// Pegar como base a posição numa tela
-
 const BackGround = () => {
   const [width, setWidth] = useState<number>(window.screen.width)
   const [vectorPosition, setVectorPosition] = useState<number>()

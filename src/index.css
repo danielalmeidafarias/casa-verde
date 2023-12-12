@@ -6,7 +6,8 @@
   --elsie: 'Elsie Swash Caps';
   --padding-top: ;
   --padding-side: ;
-  
+  overflow-x: hidden;
+
   font-family: 'Montserrat', sans-serif;
   line-height: 1.5;
   font-weight: 400;

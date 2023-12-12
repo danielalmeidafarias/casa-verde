@@ -29,10 +29,14 @@ export const P = styled.p`
 const StyledDiv = styled.div`
 
   height: 100vh;
-  width: 50vw;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media screen and (min-width: 768px){
+  width: 50vw;
+    
+  }
 
 `
 

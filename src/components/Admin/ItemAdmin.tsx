@@ -1,4 +1,4 @@
-import { IProduct } from "./OfertaProduct";
+import { IProduct } from "../Ofertas/OfertaProduct";
 import { MdDelete, MdEdit, MdSave } from 'react-icons/md'
 import axios from "axios";
 import { Button, Checkbox, Hidden, TableCell, TableRow, TextField } from "@mui/material";

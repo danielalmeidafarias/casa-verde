@@ -1,11 +1,9 @@
 import axios from "axios";
-import { IProduct } from "./OfertaProduct";
+import { IProduct } from "../Ofertas/OfertaProduct";
 import { useEffect, useState } from "react";
 import ItemAdmin from "./ItemAdmin";
 import { TextField, Button, Checkbox, FormControlLabel, Table, TableHead, TableRow, TableCell, TableBody, Hidden } from "@mui/material";
 import { FaCloudUploadAlt } from "react-icons/fa"
-
-type Base64<imageType extends string> = `data:image/${imageType};base64${string}`
 
 const Admin = () => {
   const [plantas, setPlantas] = useState<IProduct[]>();

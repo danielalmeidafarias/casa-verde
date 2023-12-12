@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { StyledBox as Box } from "./Box";
-import { H1 as StyledH1, P as StyledP } from "./SignInBox";
+import { StyledBox as Box } from "../Box";
+import { H1 as StyledH1, P as StyledP } from "../Home/SignInBox/SignInBox";
 import { FaLongArrowAltRight } from "react-icons/fa";
 
 export interface IProduct {

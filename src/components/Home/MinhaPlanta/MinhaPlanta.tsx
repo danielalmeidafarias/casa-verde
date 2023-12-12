@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { StyledBox } from "./Box";
-import MaskGroup from '../assets/Mask Group.png'
-import { H1 as StyledH1 , P } from "./SignInBox";
+import { StyledBox } from "../../Box";
+import MaskGroup from '../../../assets/Mask Group.png'
+import { H1 as StyledH1 , P } from "../../Home/SignInBox/SignInBox";
 import MinhaPlantaItem from "./MinhaPlantaItem";
 
 const StyledMinhaPlanta = styled(StyledBox)`

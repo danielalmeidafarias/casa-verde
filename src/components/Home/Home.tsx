@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import BackGround from "./BackGround";
-import Menu from "./Menu";
-import SignInBox from "./SignInBox";
+import BackGround from "../BackGround";
+import Menu from "../Menu";
+import SignInBox from "./SignInBox/SignInBox";
 
 
 const StyledHome = styled.div`
@@ -13,8 +13,8 @@ const StyledHome = styled.div`
 const Home = () => {
   return (
     <StyledHome>
-      <BackGround />
-      <Menu />
+      {/* <BackGround /> */}
+      {/* <Menu /> */}
       <SignInBox />
     </StyledHome>
   );
