@@ -9,7 +9,8 @@ const Nav = styled.nav<{ $isOpen?: boolean }>`
   width: 100dvw;
   justify-content: space-around;
   align-items: center;
-  background-color: transparent;
+  background-color: #eeebeb;
+
   position: absolute;
   top: 0;
   transition: all ease-in 0.1s;

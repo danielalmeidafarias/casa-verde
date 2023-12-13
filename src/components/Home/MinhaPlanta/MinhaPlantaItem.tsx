@@ -19,12 +19,18 @@ const Li = styled.li`
   gap: 10px;
 `
 
+const StyledP = styled(P)`
+  @media screen and (max-width: 800px){
+    font-size: 22px;
+  }
+
+`
 
 const MinhaPlantaItem = ({ children }: Props) => {
   return (  
     <Li>
       <Circle></Circle>
-      <P>{children}</P>
+      <StyledP>{children}</StyledP>
     </Li>
   );
 }

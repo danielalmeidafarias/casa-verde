@@ -5,7 +5,6 @@ const StyledSignIn = styled.div`
   width: 500px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   gap: 30px;
 `
 export const H1 = styled.h1`
@@ -33,7 +32,7 @@ const StyledDiv = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media screen and (min-width: 768px){
+  @media screen and (min-width: 1200px){
   width: 50vw;
     
   }

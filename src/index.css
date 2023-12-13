@@ -15,6 +15,14 @@
   color-scheme: light dark;
   color: rgba(0, 0, 0, 0.87);
   background-color: #eeebeb;
+  background-image: url(./assets/Vector.png);
+  background-position: top 50px right 0px ;
+  background-repeat: no-repeat;
+
+  background-size: 90%;
+  @media screen and (min-width: 1200px) {
+    background-size: 50%;
+  };
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

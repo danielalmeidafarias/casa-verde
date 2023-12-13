@@ -1,21 +1,39 @@
 import styled from "styled-components";
-import BackGround from "../BackGround";
-import Menu from "../Menu";
 import SignInBox from "./SignInBox/SignInBox";
+import MinhaPlanta from "./MinhaPlanta/MinhaPlanta";
+import Hero from '../../assets/imagem-hero 1.png'
 
 
 const StyledHome = styled.div`
   width: 100vw;
   height: 100vh;
-  padding-top: var(--padding-top);
+`
+
+const StyledDiv = styled.div`
+  /* width: 100%; */
+  /* display: flex; */
+  justify-content: center;
+`
+
+const StyledImg = styled.img`
+  height: 90vh;
+  position: absolute;
+  bottom: 0px;
+  right: calc(50vw - 425px);
+
+  @media screen and (max-width: 1200px) {
+    display: none;
+  }
 `
 
 const Home = () => {
   return (
     <StyledHome>
-      {/* <BackGround /> */}
-      {/* <Menu /> */}
-      <SignInBox />
+      <StyledDiv>
+        <SignInBox />
+        <StyledImg src={Hero} alt="" />
+      </StyledDiv>
+      <MinhaPlanta />
     </StyledHome>
   );
 }
