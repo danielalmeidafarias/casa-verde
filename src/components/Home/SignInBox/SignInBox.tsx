@@ -6,6 +6,14 @@ const StyledSignIn = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
+
+  @media screen and (max-width: 1200px){
+    &::after {
+    content: 'Veja Abaixo ⬇️';
+    font-size: 40px;
+  }
+
+  }
 `
 export const H1 = styled.h1`
   font-family: var(--elsie);
@@ -34,7 +42,6 @@ const StyledDiv = styled.div`
 
   @media screen and (min-width: 1200px){
   width: 50vw;
-    
   }
 
 `

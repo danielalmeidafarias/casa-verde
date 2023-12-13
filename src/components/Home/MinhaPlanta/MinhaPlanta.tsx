@@ -10,6 +10,7 @@ const StyledMinhaPlanta = styled(StyledBox)`
   width: 850px;
   @media screen and (max-width: 800px){
     padding: 10px;
+    width: 90%;
   }
 `
 const StyledSection = styled.section`

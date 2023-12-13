@@ -5,7 +5,7 @@ import Hero from '../../assets/imagem-hero 1.png'
 
 
 const StyledHome = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 `
 
@@ -13,6 +13,7 @@ const StyledDiv = styled.div`
   /* width: 100%; */
   /* display: flex; */
   justify-content: center;
+ 
 `
 
 const StyledImg = styled.img`
@@ -29,10 +30,10 @@ const StyledImg = styled.img`
 const Home = () => {
   return (
     <StyledHome>
-      <StyledDiv>
+      <div>
         <SignInBox />
         <StyledImg src={Hero} alt="" />
-      </StyledDiv>
+      </div>
       <MinhaPlanta />
     </StyledHome>
   );
