@@ -8,6 +8,7 @@ const StyledMinhaPlanta = styled(StyledBox)`
   display: flex;
   height: 400px;
   width: 850px;
+
   @media screen and (max-width: 800px){
     padding: 10px;
     width: 90%;
@@ -26,6 +27,7 @@ const RightDiv = styled.div`
   flex-direction: column;
   padding: 10px;
   justify-content: space-evenly;
+  background-color: var(--backgroundColor);
 
   @media screen and (max-width: 800px){
     gap: 50px;

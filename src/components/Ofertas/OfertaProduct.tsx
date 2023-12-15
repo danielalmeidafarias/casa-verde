@@ -16,6 +16,7 @@ const StyledBox = styled(Box)`
   display: flex;
   position: relative;
   cursor: pointer;
+  background-color: var(--backgroundColor);
 `
 
 const H1 = styled(StyledH1)`

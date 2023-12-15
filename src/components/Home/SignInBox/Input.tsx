@@ -1,3 +1,5 @@
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -36,8 +38,28 @@ const StyledInput = styled.input`
 
 `
 
+// Esse login serve apenas para envio de emails pelo adm
+// Criar pagina de adm para envio de emails 
+
 const Input = () => {
+
   const [email, setEmail] = useState<string>('')
+
+  const googleLogin = useGoogleLogin({
+
+    onSuccess: async (code) => {
+      console.log(code)
+      await axios.post(`http://localhost:3000/api/oauth`, {
+        code,
+        email
+      }
+      ).then(res => {
+        console.log(res)
+      })
+    },
+    flow: 'auth-code',
+
+  })
 
   const emailSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
@@ -45,32 +67,31 @@ const Input = () => {
     const regularExpressionEmail = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)
     const isValid = regularExpressionEmail.test(email)
 
-    if(!isValid) {
+    if (!isValid) {
       window.alert('Digite um email válido')
-    } 
-    
-    if(email && isValid) {
-      window.alert(`Obrigado pela sua assinatura, você receberá nossas novidades no email ${email}`)
-      setEmail('')
     }
 
+    if (email && isValid) {
+      googleLogin()
+    }
 
   }
 
-  return (  
+  return (
     <StyledForm>
-      <StyledInput 
-      required
-      value={email}
-      onChange={e => setEmail(e.target.value)}
-      placeholder={`Insira seu e-mail`}
-      type="email" />
+      <StyledInput
+        required
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        placeholder={`Insira seu e-mail`}
+        type="email" />
+
       <StyledButton
-      onClick={(e) => emailSubmit(e)}
-      type="submit"
+        onClick={(e) => emailSubmit(e)}
+        type="submit"
       >Assinar newsletter</StyledButton>
     </StyledForm>
   );
 }
- 
+
 export default Input;

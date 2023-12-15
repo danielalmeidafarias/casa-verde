@@ -14,6 +14,7 @@ const StyledSection = styled.section`
   margin-bottom: 40px;
   margin-top: 40px;
   gap: 20px;
+  padding-bottom: 50px;
 `
 
 const GridOfertas = styled.div`
@@ -23,12 +24,10 @@ const GridOfertas = styled.div`
 
   @media screen and (max-width: 900px){
     grid-template-columns: 300px 300px;
-    
   }
 
   @media screen and (max-width: 600px) {
     grid-template-columns: 300px;
-    
   }
 `
 
