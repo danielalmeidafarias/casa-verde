@@ -1,11 +1,12 @@
 import axios from "axios";
-import { IProduct } from "../Ofertas/OfertaProduct";
+import { IProduct } from "../../Ofertas/OfertaProduct";
 import { useEffect, useState } from "react";
-import ItemAdmin from "./ItemAdmin";
+import ProductItem from "./ItemAdmin";
 import { TextField, Button, Checkbox, FormControlLabel, Table, TableHead, TableRow, TableCell, TableBody, Hidden } from "@mui/material";
 import { FaCloudUploadAlt } from "react-icons/fa"
+import { H1 } from "../../Home/SignInBox/SignInBox";
 
-const Admin = () => {
+const Products = () => {
   const [plantas, setPlantas] = useState<IProduct[]>();
 
   const [nome, setNome] = useState<string>('');
@@ -80,6 +81,7 @@ const Admin = () => {
 
   return (
     <div>
+      <H1 style={{width: '100vw', justifyContent: 'center', textAlign: 'center'}}>Admin Products</H1>
       <form action="">
         <TableRow>
           <TableCell>
@@ -148,7 +150,7 @@ const Admin = () => {
         </TableHead>
         <TableBody>
           {plantas?.map(planta => (
-            <ItemAdmin
+            <ProductItem
               getPlantas={getPlantas}
               key={planta.id}
               id={planta.id}
@@ -167,4 +169,4 @@ const Admin = () => {
   );
 }
 
-export default Admin;
+export default Products;

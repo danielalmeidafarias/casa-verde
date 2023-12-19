@@ -3,13 +3,18 @@ import Logo from '../assets/logo.png'
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Twirl as Hamburger } from 'hamburger-react'
+import { Button, Hidden } from '@mui/material';
+import { GoogleLogin, useGoogleLogin, googleLogout } from '@react-oauth/google';
+import axios from 'axios';
+import { FaGoogle } from 'react-icons/fa';
 
 const Nav = styled.nav<{ $isOpen?: boolean }>`
   display: flex;
   width: 100dvw;
   justify-content: space-around;
   align-items: center;
-  background-color: #eeebeb;
+  /* background-color: #eeebeb; */
+  background-color: white;
 
   position: absolute;
   top: 0;
@@ -35,10 +40,11 @@ const Nav = styled.nav<{ $isOpen?: boolean }>`
 
 const Ul = styled.ul`
   display: flex;
+  align-items: center;
   list-style: none;
   padding: 0;
   margin: 0;
-  gap: 10px;
+  gap: 15px;
 
 `
 
@@ -75,8 +81,8 @@ const Menu = () => {
     <div>
       <Nav $isOpen={mobileIsOpen}>
         <>
-        <img src={Logo} alt="Logo Casa Verde" />
-        <Hamburger />
+          <img src={Logo} alt="Logo Casa Verde" />
+          <Hamburger />
         </>
 
         <Ul>
@@ -85,6 +91,22 @@ const Menu = () => {
           <StyledLink to={'/ofertas'}>Ofertas</StyledLink>
           <span>/</span>
           <Li>Meu Carrinho</Li>
+          <GoogleLogin
+          shape='circle'
+          type='icon'
+          text='signin'
+          size='medium'
+          onSuccess={async(credentialResponse) => {
+            axios.post('http://localhost:3000/api/auth', {
+              credential: credentialResponse.credential
+            }).then(response => {
+              console.log(response.data)
+            })
+          }}
+          onError={() => {
+            console.log('Login Failed');
+          }}
+        />{`Login`}
         </Ul>
       </Nav>
 

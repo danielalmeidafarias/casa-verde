@@ -1,4 +1,3 @@
-import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
@@ -38,30 +37,11 @@ const StyledInput = styled.input`
 
 `
 
-// Esse login serve apenas para envio de emails pelo adm
-// Criar pagina de adm para envio de emails 
-
 const Input = () => {
 
   const [email, setEmail] = useState<string>('')
 
-  const googleLogin = useGoogleLogin({
-
-    onSuccess: async (code) => {
-      console.log(code)
-      await axios.post(`http://localhost:3000/api/oauth`, {
-        code,
-        email
-      }
-      ).then(res => {
-        console.log(res)
-      })
-    },
-    flow: 'auth-code',
-
-  })
-
-  const emailSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const emailSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
 
     const regularExpressionEmail = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)
@@ -72,7 +52,17 @@ const Input = () => {
     }
 
     if (email && isValid) {
-      googleLogin()
+
+      await axios.post('http://localhost:3000/api/newsletter', {
+        email
+      }).then(() => {
+        window.alert('Email registrado com sucesso')
+      }).catch(err => {
+        if (err.response.status === 409) {
+          window.alert('Email ja registrado')
+        }
+      })
+
     }
 
   }

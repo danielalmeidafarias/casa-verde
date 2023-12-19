@@ -1,4 +1,4 @@
-import { IProduct } from "../Ofertas/OfertaProduct";
+import { IProduct } from "../../Ofertas/OfertaProduct";
 import { MdDelete, MdEdit, MdSave } from 'react-icons/md'
 import axios from "axios";
 import { Button, Checkbox, Hidden, TableCell, TableRow, TextField } from "@mui/material";
@@ -10,7 +10,7 @@ interface Props extends IProduct {
   getPlantas: () => void
 }
 
-const ItemAdmin = ({ name, price, onSale, image, id, getPlantas }: Props) => {
+const ProductItem = ({ name, price, onSale, image, id, getPlantas }: Props) => {
 
   const [edit, setEdit] = useState<boolean>(false)
 
@@ -165,4 +165,4 @@ const ItemAdmin = ({ name, price, onSale, image, id, getPlantas }: Props) => {
   );
 }
 
-export default ItemAdmin;
+export default ProductItem;

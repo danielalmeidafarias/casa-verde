@@ -1,6 +1,5 @@
 import Input from "./Input";
 import styled from "styled-components";
-import { GoogleLogin } from "@react-oauth/google";
 
 const StyledSignIn = styled.div`
   width: 500px;
