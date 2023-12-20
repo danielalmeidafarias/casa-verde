@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import { Checkbox } from "@mui/material";
 
-const StyledSection = styled.section`
+export const StyledSection = styled.section`
   width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-bottom: 40px;
-  margin-top: 40px;
+  margin-top: 70px;
   gap: 20px;
   padding-bottom: 50px;
 `
@@ -97,7 +97,6 @@ const Ofertas = () => {
 
   return (
     <StyledSection>
-      <P>Conheça nossas ofertas</P>
       <H1>Ofertas</H1>
       <FlexDiv>
         <Input 

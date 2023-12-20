@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { StyledBox as Box } from "../Box";
 import { H1 as StyledH1, P as StyledP } from "../Home/SignInBox/SignInBox";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import axios from "axios";
 
 export interface IProduct {
   id: number
@@ -59,14 +60,28 @@ const StyledImage = styled.img`
   height: 100%;
 `
 
-const OfertaProduct = ({ name, price, image, onSale }: IProduct) => {
+const OfertaProduct = ({ name, price, image, id }: IProduct) => {
+  const comprar = async (plantaID: number) => {
+
+    await axios.get(`http://localhost:3000/api/plantas/${plantaID}`)
+    .then(response => {
+      console.log(response.data.id)
+    })
+    .catch((err: any) => {
+      console.error(err)
+    })
+
+  }
+
   return (  
     <StyledBox>
       <StyledImage src={image} />
       <RightDiv>
         <H1>{name}</H1>
         <P>R$ {price}, 00</P>
-        <StyledButton>
+        <StyledButton
+        onClick={() => comprar(id)}
+        >
           Comprar
           <FaLongArrowAltRight size={20}/>
         </StyledButton>

@@ -3,10 +3,7 @@ import Logo from '../assets/logo.png'
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Twirl as Hamburger } from 'hamburger-react'
-import { Button, Hidden } from '@mui/material';
-import { GoogleLogin, useGoogleLogin, googleLogout } from '@react-oauth/google';
-import axios from 'axios';
-import { FaGoogle } from 'react-icons/fa';
+import LoginButton from './LoginButton';
 
 const Nav = styled.nav<{ $isOpen?: boolean }>`
   display: flex;
@@ -25,7 +22,7 @@ const Nav = styled.nav<{ $isOpen?: boolean }>`
 
   & > div {
     @media screen and (min-width: 768px){
-      display: none;
+      /* display: none; */
     }
   }
 
@@ -46,18 +43,6 @@ const Ul = styled.ul`
   margin: 0;
   gap: 15px;
 
-`
-
-const Li = styled.li`
-  font-weight: 600;
-  font-size: 14px;
-  color: #4e4e4e;
-  cursor: pointer;
-
-  &:hover {
-  color: #010101;
-  text-decoration: underline;
-  }
 `
 
 const StyledLink = styled(Link)`
@@ -82,7 +67,7 @@ const Menu = () => {
       <Nav $isOpen={mobileIsOpen}>
         <>
           <img src={Logo} alt="Logo Casa Verde" />
-          <Hamburger />
+          {/* <Hamburger /> */}
         </>
 
         <Ul>
@@ -90,24 +75,10 @@ const Menu = () => {
           <span>/</span>
           <StyledLink to={'/ofertas'}>Ofertas</StyledLink>
           <span>/</span>
-          <Li>Meu Carrinho</Li>
-          <GoogleLogin
-          shape='circle'
-          type='icon'
-          text='signin'
-          size='medium'
-          onSuccess={async(credentialResponse) => {
-            axios.post('http://localhost:3000/api/auth', {
-              credential: credentialResponse.credential
-            }).then(response => {
-              console.log(response.data)
-            })
-          }}
-          onError={() => {
-            console.log('Login Failed');
-          }}
-        />{`Login`}
+          <StyledLink to={'/carrinho'}>Meu Carrinho</StyledLink>
         </Ul>
+        <LoginButton />
+
       </Nav>
 
     </div>
