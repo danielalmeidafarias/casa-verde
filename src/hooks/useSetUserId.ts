@@ -1,5 +1,5 @@
 import { useSetRecoilState } from "recoil";
-import { userIdState } from "../atom";
+import { userIdState } from "../state/atom";
 
 const useSetUserId = () => {
   return useSetRecoilState(userIdState);

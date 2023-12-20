@@ -1,12 +1,10 @@
 import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
-import useUserId from '../state/hooks/useUserId'
-import { useSetRecoilState } from "recoil";
-import { userIdState } from "../state/atom";
-import useDeleteCookies from "../state/hooks/useDeleteCookies";
+import useUserId from '../hooks/useUserId'
+import useDeleteCookies from "../hooks/useDeleteCookies";
 import styled from "styled-components";
 import { CiLogout } from "react-icons/ci";
-import useSetUserId from "../state/hooks/useSetUserId";
+import useSetUserId from "../hooks/useSetUserId";
 
 const Button = styled.button`
   background-color: white;

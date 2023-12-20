@@ -1,6 +1,6 @@
 import { IProduct } from "@/components/Ofertas/OfertaProduct";
 import { atom } from "recoil";
-import useCookies from './hooks/useCookies'
+import useCookies from '../hooks/useCookies'
 
 export const userIdState = atom<string>({
   key: 'userIdState',
