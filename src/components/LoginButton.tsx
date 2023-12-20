@@ -5,6 +5,7 @@ import useDeleteCookies from "../hooks/useDeleteCookies";
 import styled from "styled-components";
 import { CiLogout } from "react-icons/ci";
 import useSetUserId from "../hooks/useSetUserId";
+import { useEffect } from "react";
 
 const Button = styled.button`
   background-color: white;
@@ -31,41 +32,55 @@ const LoginButton = () => {
   const userId = useUserId()
   const setUserId = useSetUserId()
 
-  return (  
+  const setUserIdCookie = (userId: string) => {
 
-      <>
-        {
-          userId == '' ? 
+    const expiresAt = new Date(Date.now() + 86400000).toUTCString()
+    document.cookie = `userId=${userId}; expires=${expiresAt}; path=/`
+
+  }
+
+  useEffect(() => {
+
+    if (userId !== '') {
+      setUserIdCookie(userId)
+    }
+
+  }, [])
+
+  return (
+
+    <>
+      {
+        userId == '' ?
           <GoogleLogin
-          shape='circle'
-          type='standard'
-          text='signin'
-          size='medium'
-          onSuccess={async(credentialResponse) => {
-            axios.post('http://localhost:3000/api/auth', {
-              credential: credentialResponse.credential
-            }).then(response => {
-              setUserId(response.data)
-              const expiresAt = new Date(Date.now() + 86400000).toUTCString()
-              document.cookie = `userId=${response.data.id}; expires=${expiresAt}; path=/`
-            })
-          }}
-          onError={() => {
-            window.alert('Login falhou')
-            console.log('Login Failed');
-          }}
-        />
+            shape='circle'
+            type='standard'
+            text='signin'
+            size='medium'
+            onSuccess={async (credentialResponse) => {
+              axios.post('http://localhost:3000/api/auth', {
+                credential: credentialResponse.credential
+              }).then(response => {
+                setUserId(response.data)
+                setUserIdCookie(response.data.id)
+              })
+            }}
+            onError={() => {
+              window.alert('Login falhou')
+              console.log('Login Failed');
+            }}
+          />
           :
           <Button
-          onClick={() => {
-            setUserId('')
-            useDeleteCookies()
-          }}
+            onClick={() => {
+              setUserId('')
+              useDeleteCookies()
+            }}
           ><CiLogout />Logout</Button>
-        }
-      </>
+      }
+    </>
 
   );
 }
- 
+
 export default LoginButton;

@@ -1,4 +1,4 @@
-import { IProduct } from "../../Ofertas/OfertaProduct";
+import { IProduct } from "../../../interfaces/IProduct";
 import { MdDelete, MdEdit, MdSave } from 'react-icons/md'
 import axios from "axios";
 import { Button, Checkbox, Hidden, TableCell, TableRow, TextField } from "@mui/material";
@@ -10,7 +10,7 @@ interface Props extends IProduct {
   getPlantas: () => void
 }
 
-const ProductItem = ({ name, price, onSale, image, id, getPlantas }: Props) => {
+const ProductItem = ({ name, price, number, onSale, image, id, getPlantas }: Props) => {
 
   const [edit, setEdit] = useState<boolean>(false)
 
@@ -18,6 +18,7 @@ const ProductItem = ({ name, price, onSale, image, id, getPlantas }: Props) => {
   const [editPrice, setEditPrice] = useState<number>(price)
   const [editImage, setEditImage] = useState<string | ArrayBuffer | null>(image)
   const [editOnSale, setEditOnSale] = useState<boolean | undefined>(onSale)
+  const [editNumber, setEditNumber] = useState<number>()
 
 
   const deleteItem = async (id: number) => {
@@ -33,6 +34,7 @@ const ProductItem = ({ name, price, onSale, image, id, getPlantas }: Props) => {
         name: editName,
         image: editImage,
         price: editPrice,
+        number: editNumber,
         onSale: editOnSale
       })
       .then(() => {
@@ -50,6 +52,7 @@ const ProductItem = ({ name, price, onSale, image, id, getPlantas }: Props) => {
     setEditImage(image)
     setEditOnSale(onSale)
     setEditPrice(price)
+    setEditNumber(number)
 
   }
 
@@ -72,6 +75,7 @@ const ProductItem = ({ name, price, onSale, image, id, getPlantas }: Props) => {
         <TableRow>
           <TableCell>{name}</TableCell>
           <TableCell>{price},00</TableCell>
+          <TableCell>{number}</TableCell>
           <TableCell>{`${onSale ? 'Sim' : 'Não'}`}</TableCell>
           <TableCell>
             <img style={{width: '40px'}} src={image} alt="" />
@@ -110,6 +114,13 @@ const ProductItem = ({ name, price, onSale, image, id, getPlantas }: Props) => {
             <TextField
               value={editPrice}
               onChange={e => setEditPrice(Number(e.target.value))}
+            />
+          </TableCell>
+
+          <TableCell>
+            <TextField
+              value={editNumber}
+              onChange={e => setEditNumber(Number(e.target.value))}
             />
           </TableCell>
 

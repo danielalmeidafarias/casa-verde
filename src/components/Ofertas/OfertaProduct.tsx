@@ -3,14 +3,13 @@ import { StyledBox as Box } from "../Box";
 import { H1 as StyledH1, P as StyledP } from "../Home/SignInBox/SignInBox";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import axios from "axios";
+import { IProduct } from "../../interfaces/IProduct";
+import useCart from "../../hooks/useCart";
+import { cartState } from "../../state/atom";
+import { useSetRecoilState } from "recoil";
+import { ICartProduct } from "../../interfaces/ICart";
 
-export interface IProduct {
-  id: number
-  name: string
-  price: number
-  image: string
-  onSale?: boolean
-}
+
 
 const StyledBox = styled(Box)`
   height: 150px;
@@ -61,33 +60,80 @@ const StyledImage = styled.img`
 `
 
 const OfertaProduct = ({ name, price, image, id }: IProduct) => {
+  const cart = useCart()
+  console.log(cart)
+
+  // Criar estado de disponível 
+  // Quando a quantidade de produtos no carrinho for igual a quantidade de produtos disponiveis
+  // O botão de comprar deve ficar disabled
+
+  const setCart = useSetRecoilState(cartState)
+
+  const handleSetCart = (product: ICartProduct) => {
+    console.log(product.number)
+
+    const alreadyAdded = cart.find(prod => prod.id === product.id)
+
+    if (alreadyAdded) {
+
+      let available = alreadyAdded.number < product.number
+
+      if(available) {
+        setCart(Array.from(cart, (prod: ICartProduct) => {
+
+          if (prod === alreadyAdded) {
+            return {
+              id: prod.id,
+              number: prod.number + 1
+            }
+          }
+  
+          return prod
+  
+        }))
+      } else {
+        window.alert('Quantidade do produto indisponível')
+      }
+
+    } else {
+      setCart([...cart, {
+        id: product.id,
+        number: 1
+      }])
+    }
+  }
+
   const comprar = async (plantaID: number) => {
 
     await axios.get(`http://localhost:3000/api/plantas/${plantaID}`)
-    .then(response => {
-      console.log(response.data.id)
-    })
-    .catch((err: any) => {
-      console.error(err)
-    })
+      .then(response => {
+        const data = response.data
+        handleSetCart({
+          id: data.id,
+          number: data.number
+        })
+      })
+      .catch((err: any) => {
+        console.error(err)
+      })
 
   }
 
-  return (  
+  return (
     <StyledBox>
       <StyledImage src={image} />
       <RightDiv>
         <H1>{name}</H1>
         <P>R$ {price}, 00</P>
         <StyledButton
-        onClick={() => comprar(id)}
+          onClick={() => comprar(id)}
         >
           Comprar
-          <FaLongArrowAltRight size={20}/>
+          <FaLongArrowAltRight size={20} />
         </StyledButton>
       </RightDiv>
     </StyledBox>
   );
 }
- 
+
 export default OfertaProduct;

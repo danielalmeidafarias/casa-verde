@@ -10,9 +10,10 @@ const Products = () => {
   const [plantas, setPlantas] = useState<IProduct[]>();
 
   const [nome, setNome] = useState<string>('');
-  const [preco, setPreco] = useState<number>(0);
+  const [preco, setPreco] = useState<number>();
   const [onSale, setOnSale] = useState<boolean>(false);
   const [imagem, setImagem] = useState<string | ArrayBuffer | null>('');
+  const [number, setNumber] = useState<number>()
 
   const getPlantas = async () => {
     await axios.get(`http://localhost:3000/api/plantas`)
@@ -104,6 +105,16 @@ const Products = () => {
           </TableCell>
 
           <TableCell>
+            <TextField
+              required
+              label="Quantidade"
+              variant="filled"
+              value={number}
+              onChange={e => setNumber(Number(e.target.value))}
+            />
+          </TableCell>
+
+          <TableCell>
             <Button component="label" variant="contained" startIcon={<FaCloudUploadAlt />}>
               Escolher Imagem
               <Hidden children={
@@ -143,6 +154,7 @@ const Products = () => {
           <TableRow>
             <TableCell>Nome</TableCell>
             <TableCell>Preço</TableCell>
+            <TableCell>Quantidade</TableCell>
             <TableCell>Promoção</TableCell>
             <TableCell>Imagem</TableCell>
 
@@ -156,6 +168,7 @@ const Products = () => {
               id={planta.id}
               name={planta.name}
               price={planta.price}
+              number={planta.number}
               onSale={planta.onSale}
               image={planta.image}
             />
