@@ -7,11 +7,7 @@ interface Parameters {
   setCart: (valOrUpdater: Cart | ((currVal: Cart) => Cart)) => void
 }
 
-// Nessa função deve-se adicionar a opção de retirar o produto do carrinho
-// ou
-// Criar outra função semelhante responsável por retirar o produto do carrinho
-
-const useSetCart = ({ userId, cart, setCart }: Parameters) => {
+const useAddToCart = ({ userId, cart, setCart }: Parameters) => {
 
   return (product: ICartProduct) => {
     if (userId) {
@@ -70,4 +66,4 @@ const useSetCart = ({ userId, cart, setCart }: Parameters) => {
   
 }
 
-export default useSetCart
+export default useAddToCart

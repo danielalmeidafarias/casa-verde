@@ -9,7 +9,7 @@ import { cartState } from "../../state/atom";
 import { useSetRecoilState } from "recoil";
 import { ICartProduct } from "../../interfaces/ICart";
 import useUserId from "../../hooks/useUserId";
-import useSetCart from "../../hooks/useSetCart";
+import useAddToCart from "../../hooks/useAddToCart";
 
 
 
@@ -69,7 +69,7 @@ const OfertaProduct = ({ name, price, image, id }: IProduct) => {
 
   const setCart = useSetRecoilState(cartState)
 
-  const handleSetCart = useSetCart({ userId, cart, setCart })
+  const handleSetCart = useAddToCart({ userId, cart, setCart })
 
   const comprar = async (plantaID: number) => {
 

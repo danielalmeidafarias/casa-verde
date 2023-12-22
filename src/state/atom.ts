@@ -7,9 +7,6 @@ export const userIdState = atom<string>({
   default: useCookies("userId"),
 });
 
-// Testar carrinho no banco de dados
-// Sincronizar o carrinho do banco com o estado global da aplicação 'cartState'
-
 const cartStorage = () => {
 
   const cart = localStorage.getItem("cart");
