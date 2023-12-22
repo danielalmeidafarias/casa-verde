@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { H1, P as StyledP } from "../Home/SignInBox/SignInBox";
-import OfertaProduct, { IProduct } from "./OfertaProduct";
+import OfertaProduct from "./OfertaProduct";
+import { IProduct } from "../../interfaces/IProduct";
 import { useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import { Checkbox } from "@mui/material";
@@ -17,7 +18,7 @@ export const StyledSection = styled.section`
   padding-bottom: 50px;
 `
 
-const GridOfertas = styled.div`
+export const GridOfertas = styled.div`
   display: grid;
   grid-template-columns: 300px 300px 300px;
   gap: 15px;

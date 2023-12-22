@@ -5,6 +5,7 @@ import { Button, Checkbox, Hidden, TableCell, TableRow, TextField } from "@mui/m
 import { useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { GrRevert } from "react-icons/gr";
+import { IoMdClose } from "react-icons/io";
 
 interface Props extends IProduct {
   getPlantas: () => void
@@ -18,7 +19,7 @@ const ProductItem = ({ name, price, number, onSale, image, id, getPlantas }: Pro
   const [editPrice, setEditPrice] = useState<number>(price)
   const [editImage, setEditImage] = useState<string | ArrayBuffer | null>(image)
   const [editOnSale, setEditOnSale] = useState<boolean | undefined>(onSale)
-  const [editNumber, setEditNumber] = useState<number>()
+  const [editNumber, setEditNumber] = useState<number>(number)
 
 
   const deleteItem = async (id: number) => {
@@ -166,6 +167,13 @@ const ProductItem = ({ name, price, number, onSale, image, id, getPlantas }: Pro
                 <GrRevert />
               }
             >Reverter
+            </Button>
+          </TableCell>
+
+          <TableCell>
+            <Button
+            onClick={() => setEdit(false)}>
+              <IoMdClose size={30}/>
             </Button>
           </TableCell>
 

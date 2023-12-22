@@ -8,6 +8,8 @@ import useCart from "../../hooks/useCart";
 import { cartState } from "../../state/atom";
 import { useSetRecoilState } from "recoil";
 import { ICartProduct } from "../../interfaces/ICart";
+import useUserId from "../../hooks/useUserId";
+import useSetCart from "../../hooks/useSetCart";
 
 
 
@@ -21,6 +23,7 @@ const StyledBox = styled(Box)`
 
 const H1 = styled(StyledH1)`
   font-size: 24px;
+  text-align: left;
 `
 const P = styled(StyledP)`
   font-size: 14px;
@@ -46,6 +49,7 @@ const RightDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  align-items: flex-start;
   position: absolute;
   right: 10px;
   width: 150px;
@@ -61,47 +65,11 @@ const StyledImage = styled.img`
 
 const OfertaProduct = ({ name, price, image, id }: IProduct) => {
   const cart = useCart()
-  console.log(cart)
-
-  // Criar estado de disponível 
-  // Quando a quantidade de produtos no carrinho for igual a quantidade de produtos disponiveis
-  // O botão de comprar deve ficar disabled
+  const userId = useUserId()
 
   const setCart = useSetRecoilState(cartState)
 
-  const handleSetCart = (product: ICartProduct) => {
-    console.log(product.number)
-
-    const alreadyAdded = cart.find(prod => prod.id === product.id)
-
-    if (alreadyAdded) {
-
-      let available = alreadyAdded.number < product.number
-
-      if(available) {
-        setCart(Array.from(cart, (prod: ICartProduct) => {
-
-          if (prod === alreadyAdded) {
-            return {
-              id: prod.id,
-              number: prod.number + 1
-            }
-          }
-  
-          return prod
-  
-        }))
-      } else {
-        window.alert('Quantidade do produto indisponível')
-      }
-
-    } else {
-      setCart([...cart, {
-        id: product.id,
-        number: 1
-      }])
-    }
-  }
+  const handleSetCart = useSetCart({ userId, cart, setCart })
 
   const comprar = async (plantaID: number) => {
 

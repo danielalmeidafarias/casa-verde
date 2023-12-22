@@ -19,6 +19,7 @@ export const H1 = styled.h1`
   font-family: var(--elsie);
   font-size: 80px;
   font-weight: 900;
+  text-align: center;
 `
 
 export const H3 = styled.h3`
