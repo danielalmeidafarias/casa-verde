@@ -53,7 +53,7 @@ const H3 = styled(H1)`
 
 const Cart = () => {
   const [userInfo, setUserInfo] = useState<IUser | null>()
-  const [total, setTotal] = useState<number>(0)
+  const [total, setTotal] = useState<number[]>([])
 
   const userId = useUserId()
 
@@ -100,7 +100,11 @@ const Cart = () => {
             {cart[0] && (
               <StyledBox>
                 <H3 as='h3'>Resumo do pedido</H3>
-                <p>{total}</p>
+                <p>
+                  {total[0] && total.reduce((acc, cv) => {
+                    return acc + cv
+                  })}
+                </p>
                 <Button variant="contained">Continuar</Button>
               </StyledBox>
             )}

@@ -73,8 +73,8 @@ const RightDiv = styled.div`
 `
 
 interface Props extends ICartProduct {
-  total: number
-  setTotal: React.Dispatch<React.SetStateAction<number>>
+  total: number[]
+  setTotal: React.Dispatch<React.SetStateAction<number[]>>
 }
 
 const CartProduct = ({ id, number, total, setTotal }: Props ) => {
@@ -87,10 +87,11 @@ const CartProduct = ({ id, number, total, setTotal }: Props ) => {
   const cart = useCart()
   const setCart = useSetRecoilState(cartState)
 
-
   const handleAddToCart = useAddToCart({ userId, cart, setCart })
 
   const handleRemoveFromCart = useRemoveFromCart({ userId, cart, setCart })
+
+  console.log(price)
 
   const getProduct = async () => {
 
@@ -139,16 +140,20 @@ const CartProduct = ({ id, number, total, setTotal }: Props ) => {
       })
   }
 
-  console.log(total)
-
   useEffect(() => {
-
-    if(price) {
-      setTotal(total + price)
-    }
 
     getProduct()
   }, [])
+
+  useEffect(() => {
+    
+    if(price) {
+      console.log('entrou no if do useEffect')
+      setTotal([...total, price * number])
+    }
+
+  }, [price])
+  
 
   return (
     <StyledBox>
