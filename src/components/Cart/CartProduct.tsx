@@ -3,7 +3,6 @@ import { ICartProduct } from "../../interfaces/ICart";
 import axios from "axios";
 import { IProduct } from "../../interfaces/IProduct";
 import { StyledBox as Box } from "../Box";
-import { H1 as StyledH1, P as StyledP } from "../Home/SignInBox/SignInBox";
 import styled from "styled-components";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import useAddToCart from "../../hooks/useAddToCart";
@@ -27,20 +26,10 @@ const StyledBox = styled(Box)`
 
 
   @media screen and (max-width: 768px){
-  height: 100px;
+  width: 80vw;
+  height: 60px;
     
   }
-`
-
-const H1 = styled(StyledH1)`
-  font-size: 28px;
-  text-align: left;
-  width: 100%;
-`
-const P = styled(StyledP)`
-  font-size: 18px;
-  display: flex;
-  justify-content: center;
 `
 
 const StyledImage = styled.img`
@@ -70,14 +59,13 @@ const RightDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media screen and (max-width: 768px){
+
+  }
 `
 
-interface Props extends ICartProduct {
-  total: number[]
-  setTotal: React.Dispatch<React.SetStateAction<number[]>>
-}
-
-const CartProduct = ({ id, number, total, setTotal }: Props ) => {
+const CartProduct = ({ id, number }: ICartProduct) => {
 
   const [name, setName] = useState('')
   const [price, setPrice] = useState<number>()
@@ -90,8 +78,6 @@ const CartProduct = ({ id, number, total, setTotal }: Props ) => {
   const handleAddToCart = useAddToCart({ userId, cart, setCart })
 
   const handleRemoveFromCart = useRemoveFromCart({ userId, cart, setCart })
-
-  console.log(price)
 
   const getProduct = async () => {
 
@@ -118,6 +104,8 @@ const CartProduct = ({ id, number, total, setTotal }: Props ) => {
           id: data.id,
           number: data.number
         })
+
+
       })
       .catch((err: any) => {
         console.error(err)
@@ -143,39 +131,31 @@ const CartProduct = ({ id, number, total, setTotal }: Props ) => {
   useEffect(() => {
 
     getProduct()
+
   }, [])
-
-  useEffect(() => {
-    
-    if(price) {
-      console.log('entrou no if do useEffect')
-      setTotal([...total, price * number])
-    }
-
-  }, [price])
-  
-
   return (
     <StyledBox>
       <StyledImage src={image} alt="" />
+
       <h1>{name}</h1>
       <RightDiv>
         <CounterDiv>
           <Button
-            onClick={() => addProduct(id)}
+            onClick={() =>addProduct(id)}
           >
             <FaPlus />
           </Button>
           <p>{number}</p>
 
           <Button
-            onClick={() => removeProduct(id)}
+            onClick={() => {removeProduct(id)}}
           >
             <FaMinus />
           </Button>
         </CounterDiv>
         <p>R$ {price ? price * number : null},00</p>
       </RightDiv>
+
 
     </StyledBox>
   );

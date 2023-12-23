@@ -27,14 +27,19 @@ export const FlexCart = styled.div`
 const StyledDiv = styled.div`
   display: flex;
   gap: 10px;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 
 `
 
 const StyledBox = styled(Box)`
   width: 30vw;
-  height: auto;
+  height: 125px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
   position: relative;
   cursor: pointer;
   background-color: var(--backgroundColor);
@@ -42,18 +47,19 @@ const StyledBox = styled(Box)`
   padding: 20px;
 
   @media screen and (max-width: 768px){
-  height: 100px;
+    height: 100px;
+  width: 80vw;
     
   }
 `
 
 const H3 = styled(H1)`
+  text-align: start;
   font-size: 28px;
 `
 
 const Cart = () => {
   const [userInfo, setUserInfo] = useState<IUser | null>()
-  const [total, setTotal] = useState<number[]>([])
 
   const userId = useUserId()
 
@@ -89,8 +95,6 @@ const Cart = () => {
               <FlexCart>
                 {cart.map(product => (
                   <CartProduct
-                    total={total}
-                    setTotal={setTotal}
                     key={product.id}
                     number={product.number} id={product.id} />
                 ))}
@@ -100,12 +104,8 @@ const Cart = () => {
             {cart[0] && (
               <StyledBox>
                 <H3 as='h3'>Resumo do pedido</H3>
-                <p>
-                  {total[0] && total.reduce((acc, cv) => {
-                    return acc + cv
-                  })}
-                </p>
-                <Button variant="contained">Continuar</Button>
+                <p>Total: R$</p>
+                <Button sx={{width: '100%'}} variant="contained">Continuar</Button>
               </StyledBox>
             )}
 

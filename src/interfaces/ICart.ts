@@ -3,4 +3,4 @@ export type ICartProduct = {
   number: number
 }
 
-export type Cart = ICartProduct[]
+export type TCart = ICartProduct[]

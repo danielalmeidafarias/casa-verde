@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 import useCookies from "../hooks/useCookies";
-import { Cart } from "../interfaces/ICart";
+import { TCart } from "../interfaces/ICart";
 
 export const userIdState = atom<string>({
   key: "userIdState",
@@ -18,7 +18,7 @@ const cartStorage = () => {
   }
 };
 
-export const cartState = atom<Cart>({
+export const cartState = atom<TCart>({
   key: "cartState",
   default: cartStorage(),
 });

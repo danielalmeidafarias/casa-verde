@@ -13,7 +13,7 @@ export const StyledSection = styled.section`
   align-items: center;
   justify-content: center;
   margin-bottom: 40px;
-  margin-top: 70px;
+  margin-top: 80px;
   gap: 20px;
   padding-bottom: 50px;
 `
