@@ -32,7 +32,7 @@ const SendEmail = () => {
   }
 
   return (
-    <Container>
+    <Container sx={{marginTop: '80px'}}>
       <H1 style={{width: '100vw', justifyContent: 'center', textAlign: 'center'}}>Admin Newsletter</H1>
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }} component='section'>
         <TextField sx={{ width: '500px' }} value={assunto} onChange={e => {

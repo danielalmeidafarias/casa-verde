@@ -6,11 +6,12 @@ import PaginaPadrao from "./components/PaginaPadrao/PaginaPadrao"
 import SendEmail from "./components/Admin/SendEmail/SendEmail"
 import Cart from "./components/Cart/Cart"
 import useUserId from "./hooks/useUserId"
+import PaginaPadraoAdmin from "./components/Admin/PaginaPadraoAdmin"
 
 function App() {
   const userId = useUserId()
 
-  if(!userId) {
+  if (!userId) {
     localStorage.clear()
   }
 
@@ -19,18 +20,27 @@ function App() {
       <Route path="/" element={<PaginaPadrao />}>
         <Route path="/" element={<Home />} />
         <Route path="/ofertas" element={<Ofertas />} />
-        <Route path="carrinho" element={<Cart />}/>
+        <Route path="carrinho" element={<Cart />} />
       </Route>
 
-      <Route path="/admin">
+      <Route path="/admin" element={<PaginaPadraoAdmin />}>
+
+        <Route path="/admin" element={<div style={{
+          marginTop: '80px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          Administração Casa Verde
+        </div>} />
 
         <Route path="/admin/products" element={
           <Admin />
-        }/>
+        } />
 
         <Route path="/admin/sendemail" element={
           <SendEmail />
-        }/>
+        } />
 
       </Route>
     </Routes>

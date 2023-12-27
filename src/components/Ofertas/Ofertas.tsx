@@ -122,6 +122,7 @@ const Ofertas = () => {
               name={product.name}
               image={product.image}
               price={product.price}
+              number={product.number}
             />
           ))
         }

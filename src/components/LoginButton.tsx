@@ -63,6 +63,8 @@ const LoginButton = () => {
               }).then(response => {
                 setUserId(response.data)
                 setUserIdCookie(response.data.id)
+                window.location.reload()
+
               })
             }}
             onError={() => {

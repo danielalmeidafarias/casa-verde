@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import useUserId from "../../hooks/useUserId";
 import { H1, P } from "../Home/SignInBox/SignInBox";
 import { StyledSection } from "../Ofertas/Ofertas";
-import axios from "axios";
 import { IUser } from "../../interfaces/IUser";
 import useCart from "../../hooks/useCart";
 import CartProduct from "./CartProduct";
 import styled from "styled-components";
 import { StyledBox as Box } from "../Box";
 import { Button } from "@mui/material";
+import useGetUserInfo from "../../hooks/useGetUserInfo";
 
 
 export const FlexCart = styled.div`
@@ -66,23 +66,10 @@ const Cart = () => {
   
   console.log(cart)
 
-  const getUserInfo = async () => {
-    if (userId) {
-      await axios.get(`http://localhost:3000/api/userinfo/${userId}`)
-        .then(response => {
-          setUserInfo(response.data)
-        })
-        .catch(err => {
-          console.error(err)
-        })
-    } else {
-      setUserInfo(null)
-    }
-
-  }
+  const getUserInfo = useGetUserInfo()
 
   useEffect(() => {
-    getUserInfo()
+    getUserInfo({ userId, setUserInfo })
   }, [])
 
   return (
@@ -121,7 +108,7 @@ const Cart = () => {
 
         </>
 
-        : <p>Voce nao esta logado</p>}
+        : <p>Faça login para acessar o carrinho</p>}
     </StyledSection>
   );
 }

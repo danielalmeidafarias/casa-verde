@@ -81,7 +81,7 @@ const Products = () => {
   }, [])
 
   return (
-    <div>
+    <div style={{marginTop: '80px'}}>
       <H1 style={{width: '100vw', justifyContent: 'center', textAlign: 'center'}}>Admin Products</H1>
       <form action="">
         <TableRow>
