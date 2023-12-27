@@ -64,8 +64,6 @@ const Cart = () => {
 
   const cart = useCart()
   
-  console.log(cart)
-
   const getUserInfo = useGetUserInfo()
 
   useEffect(() => {

@@ -4,7 +4,6 @@ import OfertaProduct from "./OfertaProduct";
 import { IProduct } from "../../interfaces/IProduct";
 import { useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
-import { Checkbox } from "@mui/material";
 
 export const StyledSection = styled.section`
   width: 100vw;
@@ -106,10 +105,7 @@ const Ofertas = () => {
         value={textFilter}
         type="text" />
         <FlexDiv>
-          <Checkbox 
-          color="warning"
-          onChange={(e) => setPromoFilter(e.target.checked)}
-          />
+          <input type="checkbox" onChange={(e) => setPromoFilter(e.target.checked)}/>
           <P>Promoção</P>
         </FlexDiv>
       </FlexDiv>
