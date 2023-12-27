@@ -1,10 +1,10 @@
-import { Cart } from "../interfaces/ICart"
+import { TCart } from "../interfaces/ICart"
 import { ICartProduct } from "../interfaces/ICart"
 
 interface Parameters {
   userId: string,
-  cart: Cart,
-  setCart: (valOrUpdater: Cart | ((currVal: Cart) => Cart)) => void
+  cart: TCart,
+  setCart: (valOrUpdater: TCart | ((currVal: TCart) => TCart)) => void
 }
 
 const useAddToCart = ({ userId, cart, setCart }: Parameters) => {
@@ -23,7 +23,8 @@ const useAddToCart = ({ userId, cart, setCart }: Parameters) => {
             if (prod === alreadyAdded) {
               return {
                 id: prod.id,
-                number: prod.number + 1
+                number: prod.number + 1,
+                price: prod.price
               }
             }
   
@@ -36,7 +37,9 @@ const useAddToCart = ({ userId, cart, setCart }: Parameters) => {
             if (prod === alreadyAdded) {
               return {
                 id: prod.id,
-                number: prod.number + 1
+                number: prod.number + 1,
+                price: prod.price
+
               }
             }
   
@@ -50,12 +53,14 @@ const useAddToCart = ({ userId, cart, setCart }: Parameters) => {
       } else {
         setCart([...cart, {
           id: product.id,
-          number: 1
+          number: 1,
+          price: product.price
         }])
   
         localStorage.setItem('cart', JSON.stringify([...cart, {
           id: product.id,
-          number: 1
+          number: 1,
+          price: product.price
         }]))
       }
     } else {

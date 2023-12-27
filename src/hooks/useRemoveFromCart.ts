@@ -1,10 +1,10 @@
-import { Cart } from "../interfaces/ICart";
+import { TCart } from "../interfaces/ICart";
 import { ICartProduct } from "../interfaces/ICart";
 
 interface Parameters {
   userId: string;
-  cart: Cart;
-  setCart: (valOrUpdater: Cart | ((currVal: Cart) => Cart)) => void;
+  cart: TCart;
+  setCart: (valOrUpdater: TCart | ((currVal: TCart) => TCart)) => void;
 }
 
 const useRemoveFromCart = ({ userId, cart, setCart }: Parameters) => {
@@ -22,6 +22,7 @@ const useRemoveFromCart = ({ userId, cart, setCart }: Parameters) => {
               return {
                 id: prod.id,
                 number: prod.number - 1,
+                price: prod.price
               };
             }
 
@@ -37,6 +38,7 @@ const useRemoveFromCart = ({ userId, cart, setCart }: Parameters) => {
                 return {
                   id: prod.id,
                   number: prod.number - 1,
+                  price: prod.price
                 };
               }
 

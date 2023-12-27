@@ -78,7 +78,8 @@ const OfertaProduct = ({ name, price, image, id }: IProduct) => {
         const data = response.data
         handleSetCart({
           id: data.id,
-          number: data.number
+          number: data.number,
+          price: data.price
         })
       })
       .catch((err: any) => {

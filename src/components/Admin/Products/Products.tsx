@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IProduct } from "../../Ofertas/OfertaProduct";
+import { IProduct } from "../../../interfaces/IProduct";
 import { useEffect, useState } from "react";
 import ProductItem from "./ItemAdmin";
 import { TextField, Button, Checkbox, FormControlLabel, Table, TableHead, TableRow, TableCell, TableBody, Hidden } from "@mui/material";

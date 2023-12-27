@@ -14,7 +14,6 @@ import { Button } from "@mui/material";
 export const FlexCart = styled.div`
   display: flex;
   flex-direction: column;
-  /* grid-template-columns: 300px 300px 300px; */
   gap: 5px;
 
   @media screen and (max-width: 900px){
@@ -64,6 +63,8 @@ const Cart = () => {
   const userId = useUserId()
 
   const cart = useCart()
+  
+  console.log(cart)
 
   const getUserInfo = async () => {
     if (userId) {
@@ -96,7 +97,10 @@ const Cart = () => {
                 {cart.map(product => (
                   <CartProduct
                     key={product.id}
-                    number={product.number} id={product.id} />
+                    id={product.id}
+                    number={product.number} 
+                    price={product.price}
+                    />
                 ))}
               </FlexCart>
             </div>
@@ -104,7 +108,11 @@ const Cart = () => {
             {cart[0] && (
               <StyledBox>
                 <H3 as='h3'>Resumo do pedido</H3>
-                <p>Total: R$</p>
+                <p>Total: R${Array.from(cart, (product) => {
+                  return product.number * product.price
+                }).reduce((acc, cv) => {
+                  return acc + cv
+                })}</p>
                 <Button sx={{width: '100%'}} variant="contained">Continuar</Button>
               </StyledBox>
             )}

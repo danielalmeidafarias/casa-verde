@@ -4,5 +4,5 @@ export interface IProduct {
   price: number
   image: string
   onSale?: boolean
-  number?: number
+  number: number
 }

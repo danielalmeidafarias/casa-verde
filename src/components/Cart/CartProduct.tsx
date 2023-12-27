@@ -102,7 +102,8 @@ const CartProduct = ({ id, number }: ICartProduct) => {
         const data = response.data
         handleAddToCart({
           id: data.id,
-          number: data.number
+          number: data.number,
+          price: data.price
         })
 
 
@@ -120,7 +121,8 @@ const CartProduct = ({ id, number }: ICartProduct) => {
         const data = response.data
         handleRemoveFromCart({
           id: data.id,
-          number: data.number
+          number: data.number,
+          price: data.price
         })
       })
       .catch((err: any) => {
