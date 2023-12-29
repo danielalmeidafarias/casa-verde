@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { StyledBox } from "../../Box";
-import MaskGroup from '../../../assets/Mask Group.png'
-import { H1 as StyledH1 , P as StyledP } from "../../Home/SignInBox/SignInBox";
+import MaskGroup from "../../../assets/Mask Group.png";
+import { H1 as StyledH1, P as StyledP } from "../../Home/SignInBox/SignInBox";
 import MinhaPlantaItem from "./MinhaPlantaItem";
 
 const StyledMinhaPlanta = styled(StyledBox)`
@@ -9,17 +9,17 @@ const StyledMinhaPlanta = styled(StyledBox)`
   height: 400px;
   width: 850px;
 
-  @media screen and (max-width: 800px){
+  @media screen and (max-width: 800px) {
     padding: 10px;
     width: 90%;
   }
-`
+`;
 const StyledSection = styled.section`
   width: 100%;
   display: flex;
   justify-content: center;
   padding-bottom: 50px;
-`
+`;
 
 const RightDiv = styled.div`
   width: 300px;
@@ -29,43 +29,41 @@ const RightDiv = styled.div`
   justify-content: space-evenly;
   background-color: var(--backgroundColor);
 
-  @media screen and (max-width: 800px){
+  @media screen and (max-width: 800px) {
     gap: 50px;
   }
-
-`
+`;
 const H1 = styled(StyledH1)`
   font-size: 32px;
-  @media screen and (max-width: 800px){
+  @media screen and (max-width: 800px) {
     width: 100%;
     font-size: 70px;
     text-align: center;
   }
-`
+`;
 
 const P = styled(StyledP)`
-  @media screen and (max-width: 800px){
+  @media screen and (max-width: 800px) {
     width: 100%;
     font-size: 30px;
     text-align: center;
     font-weight: 600;
   }
-`
+`;
 
 const Ul = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 10px;
-`
+`;
 
 const StyledImg = styled.img`
-display: block;
+  display: block;
 
-  @media screen and (max-width: 800px){
+  @media screen and (max-width: 800px) {
     display: none;
   }
-
-`
+`;
 
 const MinhaPlanta = () => {
   return (
@@ -83,8 +81,7 @@ const MinhaPlanta = () => {
         </RightDiv>
       </StyledMinhaPlanta>
     </StyledSection>
-
   );
-}
+};
 
 export default MinhaPlanta;

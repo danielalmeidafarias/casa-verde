@@ -10,33 +10,37 @@ const StyledDiv = styled.div`
   width: 100vw;
   height: 100vh;
   position: absolute;
-`
+`;
 
 const PaginaPadraoAdmin = () => {
-  
-  const [userInfo, setUserInfo] = useState<IUser | null>()
-  const userId = useUserId()
+  const [userInfo, setUserInfo] = useState<IUser | null>();
+  const userId = useUserId();
 
-  const getUserInfo = useGetUserInfo()
+  const getUserInfo = useGetUserInfo();
 
   useEffect(() => {
-    getUserInfo({ userId, setUserInfo })
-  })
+    getUserInfo({ userId, setUserInfo });
+  });
 
-  return (  
+  return (
     <StyledDiv>
       <Menu />
-      {userInfo?.isAdmin ? <Outlet /> : <div 
-      style={{
-        marginTop: '80px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}
-      >Faça login como administrador para continuar</div>}
+      {userInfo?.isAdmin ? (
+        <Outlet />
+      ) : (
+        <div
+          style={{
+            marginTop: "80px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          Faça login como administrador para continuar
+        </div>
+      )}
     </StyledDiv>
-
   );
-}
- 
+};
+
 export default PaginaPadraoAdmin;

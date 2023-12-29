@@ -1,18 +1,18 @@
-import Home from "./components/Home/Home"
-import Ofertas from "./components/Ofertas/Ofertas"
-import { Route, Routes } from "react-router-dom"
-import Admin from "./components/Admin/Products/Products"
-import PaginaPadrao from "./components/PaginaPadrao/PaginaPadrao"
-import SendEmail from "./components/Admin/SendEmail/SendEmail"
-import Cart from "./components/Cart/Cart"
-import useUserId from "./hooks/useUserId"
-import PaginaPadraoAdmin from "./components/Admin/PaginaPadraoAdmin"
+import Home from "./components/Home/Home";
+import Ofertas from "./components/Ofertas/Ofertas";
+import { Route, Routes } from "react-router-dom";
+import Admin from "./components/Admin/Products/Products";
+import PaginaPadrao from "./components/PaginaPadrao/PaginaPadrao";
+import SendEmail from "./components/Admin/SendEmail/SendEmail";
+import Cart from "./components/Cart/Cart";
+import useUserId from "./hooks/useUserId";
+import PaginaPadraoAdmin from "./components/Admin/PaginaPadraoAdmin";
 
 function App() {
-  const userId = useUserId()
+  const userId = useUserId();
 
   if (!userId) {
-    localStorage.clear()
+    localStorage.clear();
   }
 
   return (
@@ -24,27 +24,28 @@ function App() {
       </Route>
 
       <Route path="/admin" element={<PaginaPadraoAdmin />}>
+        <Route
+          path="/admin"
+          element={
+            <div
+              style={{
+                marginTop: "80px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              Administração Casa Verde
+            </div>
+          }
+        />
 
-        <Route path="/admin" element={<div style={{
-          marginTop: '80px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
-          Administração Casa Verde
-        </div>} />
+        <Route path="/admin/products" element={<Admin />} />
 
-        <Route path="/admin/products" element={
-          <Admin />
-        } />
-
-        <Route path="/admin/sendemail" element={
-          <SendEmail />
-        } />
-
+        <Route path="/admin/sendemail" element={<SendEmail />} />
       </Route>
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;

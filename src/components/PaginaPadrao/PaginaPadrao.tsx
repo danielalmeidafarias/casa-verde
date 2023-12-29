@@ -9,12 +9,12 @@ const StyledDiv = styled.div`
 `
 
 const PaginaPadrao = () => {
-  return (  
+  return (
     <StyledDiv>
       <Menu />
       <Outlet />
     </StyledDiv>
   );
 }
- 
+
 export default PaginaPadrao;

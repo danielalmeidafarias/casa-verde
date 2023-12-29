@@ -1,10 +1,8 @@
-import { useRecoilValue } from 'recoil'
-import { cartState } from '../state/atom'
+import { useRecoilValue } from "recoil";
+import { cartState } from "../state/atom";
 
-const useCart = () =>{
+const useCart = () => {
+  return useRecoilValue(cartState);
+};
 
-  return useRecoilValue(cartState)
-
-}
-
-export default useCart
+export default useCart;

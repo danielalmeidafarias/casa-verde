@@ -24,17 +24,15 @@ const StyledBox = styled(Box)`
   border-radius: 10px;
   padding: 20px;
 
-
-  @media screen and (max-width: 768px){
-  width: 80vw;
-  height: 60px;
-    
+  @media screen and (max-width: 768px) {
+    width: 80vw;
+    height: 60px;
   }
-`
+`;
 
 const StyledImage = styled.img`
   height: 100%;
-`
+`;
 
 const CounterDiv = styled.div`
   display: flex;
@@ -42,7 +40,7 @@ const CounterDiv = styled.div`
   padding: 5px;
   border: 1px solid #aca8a8;
   border-radius: 5px;
-`
+`;
 
 const Button = styled.button`
   border: none;
@@ -52,7 +50,7 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-`
+`;
 
 const RightDiv = styled.div`
   width: 200px;
@@ -60,81 +58,72 @@ const RightDiv = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  @media screen and (max-width: 768px){
-
+  @media screen and (max-width: 768px) {
   }
-`
+`;
 
 const CartProduct = ({ id, number }: ICartProduct) => {
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState<number>();
+  const [image, setImage] = useState("");
 
-  const [name, setName] = useState('')
-  const [price, setPrice] = useState<number>()
-  const [image, setImage] = useState('')
+  const userId = useUserId();
+  const cart = useCart();
+  const setCart = useSetRecoilState(cartState);
 
-  const userId = useUserId()
-  const cart = useCart()
-  const setCart = useSetRecoilState(cartState)
+  const handleAddToCart = useAddToCart({ userId, cart, setCart });
 
-  const handleAddToCart = useAddToCart({ userId, cart, setCart })
-
-  const handleRemoveFromCart = useRemoveFromCart({ userId, cart, setCart })
+  const handleRemoveFromCart = useRemoveFromCart({ userId, cart, setCart });
 
   const getProduct = async () => {
-
-    await axios.get<IProduct>(`http://localhost:3000/api/plantas/${id}`)
-      .then(response => {
-        const data = response.data
-        setName(data.name)
-        setPrice(data.price)
-        setImage(data.image)
-
+    await axios
+      .get<IProduct>(`http://localhost:3000/api/plantas/${id}`)
+      .then((response) => {
+        const data = response.data;
+        setName(data.name);
+        setPrice(data.price);
+        setImage(data.image);
       })
-      .catch(err => {
-        console.error(err)
-      })
-
-  }
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   const addProduct = async (plantaID: number) => {
-
-    await axios.get(`http://localhost:3000/api/plantas/${plantaID}`)
-      .then(response => {
-        const data = response.data
+    await axios
+      .get(`http://localhost:3000/api/plantas/${plantaID}`)
+      .then((response) => {
+        const data = response.data;
         handleAddToCart({
           id: data.id,
           number: data.number,
-          price: data.price
-        })
-
-
+          price: data.price,
+        });
       })
       .catch((err: any) => {
-        console.error(err)
-      })
-
-  }
+        console.error(err);
+      });
+  };
 
   const removeProduct = async (plantaID: number) => {
-
-    await axios.get(`http://localhost:3000/api/plantas/${plantaID}`)
-      .then(response => {
-        const data = response.data
+    await axios
+      .get(`http://localhost:3000/api/plantas/${plantaID}`)
+      .then((response) => {
+        const data = response.data;
         handleRemoveFromCart({
           id: data.id,
           number: data.number,
-          price: data.price
-        })
+          price: data.price,
+        });
       })
       .catch((err: any) => {
-        console.error(err)
-      })
-  }
+        console.error(err);
+      });
+  };
 
   useEffect(() => {
-
-    getProduct()
-
-  }, [])
+    getProduct();
+  }, []);
   return (
     <StyledBox>
       <StyledImage src={image} alt="" />
@@ -142,25 +131,23 @@ const CartProduct = ({ id, number }: ICartProduct) => {
       <h1>{name}</h1>
       <RightDiv>
         <CounterDiv>
-          <Button
-            onClick={() =>addProduct(id)}
-          >
+          <Button onClick={() => addProduct(id)}>
             <FaPlus />
           </Button>
           <p>{number}</p>
 
           <Button
-            onClick={() => {removeProduct(id)}}
+            onClick={() => {
+              removeProduct(id);
+            }}
           >
             <FaMinus />
           </Button>
         </CounterDiv>
         <p>R$ {price ? price * number : null},00</p>
       </RightDiv>
-
-
     </StyledBox>
   );
-}
+};
 
 export default CartProduct;

@@ -1,10 +1,8 @@
-import { useRecoilValue } from 'recoil'
-import { userIdState } from '../state/atom'
+import { useRecoilValue } from "recoil";
+import { userIdState } from "../state/atom";
 
-const useUserId = () =>{
+const useUserId = () => {
+  return useRecoilValue(userIdState);
+};
 
-  return useRecoilValue(userIdState)
-
-}
-
-export default useUserId
+export default useUserId;

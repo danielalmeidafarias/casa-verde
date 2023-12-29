@@ -1,6 +1,6 @@
 import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
-import useUserId from '../hooks/useUserId'
+import useUserId from "../hooks/useUserId";
 import useDeleteCookies from "../hooks/useDeleteCookies";
 import styled from "styled-components";
 import { CiLogout } from "react-icons/ci";
@@ -14,75 +14,71 @@ const Button = styled.button`
   color: #2e2d2d;
   width: 115px;
   height: 30px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 500;
   transition: all ease-in-out 200ms;
   display: flex;
   align-items: center;
   justify-content: space-around;
 
-  &:hover { 
+  &:hover {
     background-color: rgba(112, 162, 247, 0.05);
     border: 1px solid rgba(112, 162, 247, 0.3);
-
   }
-`
+`;
 
 const LoginButton = () => {
-  const userId = useUserId()
-  const setUserId = useSetUserId()
+  const userId = useUserId();
+  const setUserId = useSetUserId();
 
   const setUserIdCookie = (userId: string) => {
-
-    const expiresAt = new Date(Date.now() + 86400000).toUTCString()
-    document.cookie = `userId=${userId}; expires=${expiresAt}; path=/`
-
-  }
+    const expiresAt = new Date(Date.now() + 86400000).toUTCString();
+    document.cookie = `userId=${userId}; expires=${expiresAt}; path=/`;
+  };
 
   useEffect(() => {
-
-    if (userId !== '') {
-      setUserIdCookie(userId)
+    if (userId !== "") {
+      setUserIdCookie(userId);
     }
-
-  }, [])
+  }, []);
 
   return (
-
     <>
-      {
-        userId == '' ?
-          <GoogleLogin
-            shape='circle'
-            type='standard'
-            text='signin'
-            size='medium'
-            onSuccess={async (credentialResponse) => {
-              axios.post('http://localhost:3000/api/auth', {
-                credential: credentialResponse.credential
-              }).then(response => {
-                setUserId(response.data)
-                setUserIdCookie(response.data.id)
-                window.location.reload()
-
+      {userId == "" ? (
+        <GoogleLogin
+          shape="circle"
+          type="standard"
+          text="signin"
+          size="medium"
+          onSuccess={async (credentialResponse) => {
+            axios
+              .post("http://localhost:3000/api/auth", {
+                credential: credentialResponse.credential,
               })
-            }}
-            onError={() => {
-              window.alert('Login falhou')
-              console.log('Login Failed');
-            }}
-          />
-          :
-          <Button
-            onClick={() => {
-              setUserId('')
-              useDeleteCookies()
-            }}
-          ><CiLogout />Logout</Button>
-      }
+              .then((response) => {
+                // setUserId(response.data.id)
+                setUserIdCookie(response.data.id);
+                window.location.reload();
+              });
+          }}
+          onError={() => {
+            window.alert("Login falhou");
+            console.log("Login Failed");
+          }}
+        />
+      ) : (
+        <Button
+          onClick={() => {
+            setUserId("");
+            useDeleteCookies();
+          }}
+        >
+          <CiLogout />
+          Logout
+        </Button>
+      )}
     </>
-
   );
-}
+};
 
 export default LoginButton;

@@ -1,6 +1,6 @@
 export interface IUser {
-  id: string
-  name: string
-  email: string
-  isAdmin?: boolean
+  id: string;
+  name: string;
+  email: string;
+  isAdmin?: boolean;
 }

@@ -1,7 +1,7 @@
 export type ICartProduct = {
-  id: number,
-  number: number,
-  price: number
-}
+  id: number;
+  number: number;
+  price: number;
+};
 
-export type TCart = ICartProduct[]
+export type TCart = ICartProduct[];

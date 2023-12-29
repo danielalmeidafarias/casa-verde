@@ -12,9 +12,8 @@ const useRemoveFromCart = ({ userId, cart, setCart }: Parameters) => {
     const addedProduct = cart.find((prod) => prod.id === product.id);
 
     if (userId && addedProduct) {
+      let stillOnCart = addedProduct.number > 1;
 
-      let stillOnCart = addedProduct.number > 1
-      
       if (stillOnCart) {
         setCart(
           Array.from(cart, (prod: ICartProduct) => {
@@ -22,7 +21,7 @@ const useRemoveFromCart = ({ userId, cart, setCart }: Parameters) => {
               return {
                 id: prod.id,
                 number: prod.number - 1,
-                price: prod.price
+                price: prod.price,
               };
             }
 
@@ -38,7 +37,7 @@ const useRemoveFromCart = ({ userId, cart, setCart }: Parameters) => {
                 return {
                   id: prod.id,
                   number: prod.number - 1,
-                  price: prod.price
+                  price: prod.price,
                 };
               }
 
@@ -47,11 +46,14 @@ const useRemoveFromCart = ({ userId, cart, setCart }: Parameters) => {
           )
         );
       } else {
+        setCart(Array.from(cart).filter((prod) => prod !== addedProduct));
 
-        setCart(Array.from(cart).filter(prod => prod !== addedProduct))
-
-        localStorage.setItem('cart', JSON.stringify(Array.from(cart).filter(prod => prod !== addedProduct)))
-
+        localStorage.setItem(
+          "cart",
+          JSON.stringify(
+            Array.from(cart).filter((prod) => prod !== addedProduct)
+          )
+        );
       }
     } else {
       window.alert("Faça login para acessar o carrinho");

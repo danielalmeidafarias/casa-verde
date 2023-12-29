@@ -6,7 +6,7 @@ const StyledForm = styled.form`
   width: 100%;
   display: flex;
   height: 60px;
-`
+`;
 
 const StyledButton = styled.button`
   width: 40%;
@@ -23,8 +23,7 @@ const StyledButton = styled.button`
   &:hover {
     box-shadow: 0px 0px 20px -1px var(--yellow);
   }
-  
-`
+`;
 
 const StyledInput = styled.input`
   width: 60%;
@@ -34,54 +33,56 @@ const StyledInput = styled.input`
   color: #727171;
   box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.1);
   outline: none;
-
-`
+`;
 
 const Input = () => {
+  const [email, setEmail] = useState<string>("");
 
-  const [email, setEmail] = useState<string>('')
+  const emailSubmit = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
 
-  const emailSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault()
-
-    const regularExpressionEmail = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)
-    const isValid = regularExpressionEmail.test(email)
+    const regularExpressionEmail = new RegExp(
+      /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+    );
+    const isValid = regularExpressionEmail.test(email);
 
     if (!isValid) {
-      window.alert('Digite um email válido')
+      window.alert("Digite um email válido");
     }
 
     if (email && isValid) {
-
-      await axios.post('http://localhost:3000/api/newsletter', {
-        email
-      }).then(() => {
-        window.alert('Email registrado com sucesso')
-      }).catch(err => {
-        if (err.response.status === 409) {
-          window.alert('Email ja registrado')
-        }
-      })
-
+      await axios
+        .post("http://localhost:3000/api/newsletter", {
+          email,
+        })
+        .then(() => {
+          window.alert("Email registrado com sucesso");
+        })
+        .catch((err) => {
+          if (err.response.status === 409) {
+            window.alert("Email ja registrado");
+          }
+        });
     }
-
-  }
+  };
 
   return (
     <StyledForm>
       <StyledInput
         required
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}
         placeholder={`Insira seu e-mail`}
-        type="email" />
+        type="email"
+      />
 
-      <StyledButton
-        onClick={(e) => emailSubmit(e)}
-        type="submit"
-      >Assinar newsletter</StyledButton>
+      <StyledButton onClick={(e) => emailSubmit(e)} type="submit">
+        Assinar newsletter
+      </StyledButton>
     </StyledForm>
   );
-}
+};
 
 export default Input;

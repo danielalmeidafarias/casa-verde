@@ -8,7 +8,6 @@ export const userIdState = atom<string>({
 });
 
 const cartStorage = () => {
-
   const cart = localStorage.getItem("cart");
 
   if (cart) {
