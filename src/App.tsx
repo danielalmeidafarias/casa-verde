@@ -7,6 +7,9 @@ import SendEmail from "./components/Admin/SendEmail/SendEmail";
 import Cart from "./components/Cart/Cart";
 import useUserId from "./hooks/useUserId";
 import PaginaPadraoAdmin from "./components/Admin/PaginaPadraoAdmin";
+import PaymentSuccess from "./components/Payment/PaymentSuccess";
+import PaymentFailed from "./components/Payment/PaymentFailed";
+import Unvaliable from "./components/Payment/Unvaliable";
 
 function App() {
   const userId = useUserId();
@@ -20,7 +23,10 @@ function App() {
       <Route path="/" element={<PaginaPadrao />}>
         <Route path="/" element={<Home />} />
         <Route path="/ofertas" element={<Ofertas />} />
-        <Route path="carrinho" element={<Cart />} />
+        <Route path="/carrinho" element={<Cart />} />
+        <Route path="/paymentsuccess" element={<PaymentSuccess />}/>
+        <Route path="/paymentfailed" element={<PaymentFailed />}/>
+        <Route path="/unvaliable" element={<Unvaliable />}/>
       </Route>
 
       <Route path="/admin" element={<PaginaPadraoAdmin />}>

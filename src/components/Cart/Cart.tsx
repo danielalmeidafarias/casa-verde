@@ -9,6 +9,8 @@ import styled from "styled-components";
 import { StyledBox as Box } from "../Box";
 import useGetUserInfo from "../../hooks/useGetUserInfo";
 import GooglePayButton from "@google-pay/button-react";
+import { Button } from "@mui/material";
+import axios from "axios";
 
 export const FlexCart = styled.div`
   display: flex;
@@ -54,6 +56,10 @@ const H3 = styled(H1)`
   font-size: 28px;
 `;
 
+const Form = styled.form`
+  width: 100%;
+`;
+
 const Cart = () => {
   const [userInfo, setUserInfo] = useState<IUser | null>();
   const [totalPrice, setTotalPrice] = useState<number | undefined>();
@@ -61,6 +67,16 @@ const Cart = () => {
   const userId = useUserId();
   const cart = useCart();
   const getUserInfo = useGetUserInfo();
+
+  const handlePayment = async () => {
+    await axios
+      .post(`http://localhost:3000/api/payment`, {
+        cart: cart,
+      })
+      .then((response) => {
+        window.location.href = response.data.href
+      });
+  };
 
   const handleTotalPrice = () => {
     if (cart[0]) {
@@ -97,6 +113,7 @@ const Cart = () => {
                     id={product.id}
                     number={product.number}
                     price={product.price}
+                    name={product.name}
                   />
                 ))}
               </FlexCart>
@@ -106,51 +123,25 @@ const Cart = () => {
               <StyledBox>
                 <H3 as="h3">Resumo do pedido</H3>
                 <p>Total: R$ {totalPrice},00</p>
-                {/* <Button sx={{ width: '100%' }} variant="contained">Continuar</Button> */}
-                <GooglePayButton
-                  environment="TEST"
-                  paymentRequest={{
-                    apiVersion: 2,
-                    apiVersionMinor: 0,
-                    merchantInfo: {
-                      merchantId: "BCR2DN4TZL54NPIQ",
-                      merchantName: "Casa Verde",
-                    },
-                    allowedPaymentMethods: [
-                      {
-                        type: "CARD",
-                        parameters: {
-                          allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
-                          allowedCardNetworks: ["MASTERCARD", "VISA"],
-                        },
-                        tokenizationSpecification: {
-                          type: "PAYMENT_GATEWAY",
-                          parameters: {
-                            gateway: "example",
-                            gatewayMerchantId: "exampleGatewayMerchantId",
-                          },
-                        },
-                      },
-                    ],
-                    transactionInfo: {
-                      totalPrice: totalPrice ? totalPrice.toString() : "",
-                      currencyCode: "BRL",
-                      countryCode: "BR",
-                      totalPriceStatus: "FINAL",
-                      totalPriceLabel: "Total",
-                    },
-                  }}
-                  buttonSizeMode="fill"
-                  buttonType="pay"
-                  buttonLocale="pt"
-                  buttonColor="white"
-                  style={{
-                    width: "100%",
-                  }}
-                  onLoadPaymentData={(paymentRequest) => {
-                    console.log("load payment data", paymentRequest);
-                  }}
-                />
+                {/* <Form action="http://localhost:3000/api/payment" method="POST">
+                  <Button
+                  onClick={handlePayment}
+
+                    type="submit"
+                    sx={{ width: "100%" }}
+                    variant="contained"
+                  >
+                    Continuar
+                  </Button>
+                </Form> */}
+
+                <Button
+                  onClick={handlePayment}
+                  sx={{ width: "100%" }}
+                  variant="contained"
+                >
+                  Continuar
+                </Button>
               </StyledBox>
             )}
           </StyledDiv>

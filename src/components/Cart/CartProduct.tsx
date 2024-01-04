@@ -98,6 +98,7 @@ const CartProduct = ({ id, number }: ICartProduct) => {
           id: data.id,
           number: data.number,
           price: data.price,
+          name: data.name
         });
       })
       .catch((err: any) => {
@@ -114,6 +115,7 @@ const CartProduct = ({ id, number }: ICartProduct) => {
           id: data.id,
           number: data.number,
           price: data.price,
+          name: data.name
         });
       })
       .catch((err: any) => {

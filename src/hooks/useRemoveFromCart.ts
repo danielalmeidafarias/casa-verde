@@ -22,6 +22,7 @@ const useRemoveFromCart = ({ userId, cart, setCart }: Parameters) => {
                 id: prod.id,
                 number: prod.number - 1,
                 price: prod.price,
+                name: prod.name,
               };
             }
 
@@ -38,6 +39,7 @@ const useRemoveFromCart = ({ userId, cart, setCart }: Parameters) => {
                   id: prod.id,
                   number: prod.number - 1,
                   price: prod.price,
+                  name: prod.name,
                 };
               }
 

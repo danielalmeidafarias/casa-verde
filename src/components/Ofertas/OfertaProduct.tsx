@@ -78,6 +78,7 @@ const OfertaProduct = ({ name, price, image, id }: IProduct) => {
           id: data.id,
           number: data.number,
           price: data.price,
+          name: data.name
         });
       })
       .catch((err: any) => {

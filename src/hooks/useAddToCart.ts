@@ -23,6 +23,7 @@ const useAddToCart = ({ userId, cart, setCart }: Parameters) => {
                   id: prod.id,
                   number: prod.number + 1,
                   price: prod.price,
+                  name: prod.name,
                 };
               }
 
@@ -39,6 +40,7 @@ const useAddToCart = ({ userId, cart, setCart }: Parameters) => {
                     id: prod.id,
                     number: prod.number + 1,
                     price: prod.price,
+                    name: prod.name,
                   };
                 }
 
@@ -56,6 +58,7 @@ const useAddToCart = ({ userId, cart, setCart }: Parameters) => {
             id: product.id,
             number: 1,
             price: product.price,
+            name: product.name,
           },
         ]);
 
@@ -67,6 +70,7 @@ const useAddToCart = ({ userId, cart, setCart }: Parameters) => {
               id: product.id,
               number: 1,
               price: product.price,
+              name: product.name,
             },
           ])
         );
