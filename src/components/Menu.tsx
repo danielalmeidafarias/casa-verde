@@ -1,9 +1,12 @@
 import styled from "styled-components";
 import Logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Twirl as Hamburger } from "hamburger-react";
 import LoginButton from "./LoginButton";
+import useUserId from "../hooks/useUserId";
+import { IUser } from "../interfaces/IUser";
+import useGetUserInfo from "../hooks/useGetUserInfo";
 
 const Nav = styled.nav`
   display: flex;
@@ -71,6 +74,14 @@ const StyledLink = styled(Link)`
 
 const Menu = () => {
   const [mobileIsOpen, setMobileIsOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState<IUser | null>();
+
+  const userId = useUserId();
+  const getUserInfo = useGetUserInfo();
+
+  useEffect(() => {
+    getUserInfo({ userId, setUserInfo });
+  }, [userId]);
 
   return (
     <>
@@ -82,6 +93,12 @@ const Menu = () => {
           <StyledLink to={"/ofertas"}>Ofertas</StyledLink>
           <span>/</span>
           <StyledLink to={"/carrinho"}>Meu Carrinho</StyledLink>
+          {userInfo?.isAdmin && (
+            <>
+              <span>/</span>
+              <StyledLink to={"/admin"}>Administração</StyledLink>
+            </>
+          )}
         </Ul>
         <LoginButton />
       </Nav>
