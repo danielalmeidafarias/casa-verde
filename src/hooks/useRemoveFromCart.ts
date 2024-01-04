@@ -1,17 +1,18 @@
+import { IUser } from "@/interfaces/IUser";
 import { TCart } from "../interfaces/ICart";
 import { ICartProduct } from "../interfaces/ICart";
 
 interface Parameters {
-  userId: string;
+  userInfo: IUser | null;
   cart: TCart;
   setCart: (valOrUpdater: TCart | ((currVal: TCart) => TCart)) => void;
 }
 
-const useRemoveFromCart = ({ userId, cart, setCart }: Parameters) => {
+const useRemoveFromCart = ({ userInfo, cart, setCart }: Parameters) => {
   return (product: ICartProduct) => {
     const addedProduct = cart.find((prod) => prod.id === product.id);
 
-    if (userId && addedProduct) {
+    if (userInfo && addedProduct) {
       let stillOnCart = addedProduct.number > 1;
 
       if (stillOnCart) {

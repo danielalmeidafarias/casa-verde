@@ -6,11 +6,11 @@ import { StyledBox as Box } from "../Box";
 import styled from "styled-components";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import useAddToCart from "../../hooks/useAddToCart";
-import useUserId from "../../hooks/useUserId";
 import useCart from "../../hooks/useCart";
 import { useSetRecoilState } from "recoil";
 import { cartState } from "../../state/atom";
 import useRemoveFromCart from "../../hooks/useRemoveFromCart";
+import { IUser } from "../../interfaces/IUser";
 
 const StyledBox = styled(Box)`
   height: 40px;
@@ -62,18 +62,21 @@ const RightDiv = styled.div`
   }
 `;
 
-const CartProduct = ({ id, number }: ICartProduct) => {
+interface Props extends ICartProduct {
+  userInfo: IUser
+}
+
+const CartProduct = ({ id, number, userInfo }: Props) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState<number>();
   const [image, setImage] = useState("");
 
-  const userId = useUserId();
   const cart = useCart();
   const setCart = useSetRecoilState(cartState);
 
-  const handleAddToCart = useAddToCart({ userId, cart, setCart });
+  const handleAddToCart = useAddToCart({ userInfo, cart, setCart });
 
-  const handleRemoveFromCart = useRemoveFromCart({ userId, cart, setCart });
+  const handleRemoveFromCart = useRemoveFromCart({ userInfo, cart, setCart });
 
   const getProduct = async () => {
     await axios

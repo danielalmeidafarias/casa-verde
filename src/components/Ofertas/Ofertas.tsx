@@ -4,6 +4,7 @@ import OfertaProduct from "./OfertaProduct";
 import { IProduct } from "../../interfaces/IProduct";
 import { useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
+import { useUserInfo } from "../../hooks/useUserInfo";
 
 export const StyledSection = styled.section`
   width: 100vw;
@@ -57,6 +58,8 @@ const Ofertas = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [promoFilter, setPromoFilter] = useState<boolean>(false);
   const [textFilter, setTextFilter] = useState<string>("");
+
+  const userInfo = useUserInfo();
 
   const getPlantas = async () => {
     await axios
@@ -119,6 +122,7 @@ const Ofertas = () => {
       <GridOfertas>
         {products.map((product) => (
           <OfertaProduct
+            userInfo={userInfo}
             key={product.id}
             id={product.id}
             name={product.name}

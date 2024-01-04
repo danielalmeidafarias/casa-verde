@@ -1,11 +1,12 @@
 import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
-import useUserId from "../hooks/useUserId";
 import useDeleteCookies from "../hooks/useDeleteCookies";
 import styled from "styled-components";
 import { CiLogout } from "react-icons/ci";
-import useSetUserId from "../hooks/useSetUserId";
 import { useEffect } from "react";
+import { useSetUserInfo } from "../hooks/useSetUserInfo";
+import { useUserInfo } from "../hooks/useUserInfo";
+import { IUser } from "@/interfaces/IUser";
 
 const Button = styled.button`
   background-color: white;
@@ -28,23 +29,23 @@ const Button = styled.button`
 `;
 
 const LoginButton = () => {
-  const userId = useUserId();
-  const setUserId = useSetUserId();
+  const setUserInfo = useSetUserInfo()
+  const userInfo = useUserInfo()
 
-  const setUserIdCookie = (userId: string) => {
+  const setUserCookie = (user: IUser) => {
     const expiresAt = new Date(Date.now() + 86400000).toUTCString();
-    document.cookie = `userId=${userId}; expires=${expiresAt}; path=/`;
+    document.cookie = `user=${JSON.stringify(user)}; expires=${expiresAt}; path=/`;
   };
 
   useEffect(() => {
-    if (userId !== "") {
-      setUserIdCookie(userId);
+    if (userInfo) {
+      setUserCookie(userInfo);
     }
-  }, []);
+  }, [userInfo]);
 
   return (
     <>
-      {userId == "" ? (
+      {userInfo == null ? (
         <GoogleLogin
           shape="circle"
           type="standard"
@@ -56,9 +57,9 @@ const LoginButton = () => {
                 credential: credentialResponse.credential,
               })
               .then((response) => {
-                // setUserId(response.data.id)
-                setUserIdCookie(response.data.id);
-                window.location.reload();
+                setUserCookie(response.data);
+                // window.location.reload();
+                setUserInfo(response.data)
               });
           }}
           onError={() => {
@@ -69,7 +70,7 @@ const LoginButton = () => {
       ) : (
         <Button
           onClick={() => {
-            setUserId("");
+            setUserInfo(null)
             useDeleteCookies();
           }}
         >

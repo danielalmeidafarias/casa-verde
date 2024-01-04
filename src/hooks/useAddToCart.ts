@@ -1,15 +1,16 @@
+import { IUser } from "@/interfaces/IUser";
 import { TCart } from "../interfaces/ICart";
 import { ICartProduct } from "../interfaces/ICart";
 
 interface Parameters {
-  userId: string;
+  userInfo: IUser | null;
   cart: TCart;
   setCart: (valOrUpdater: TCart | ((currVal: TCart) => TCart)) => void;
 }
 
-const useAddToCart = ({ userId, cart, setCart }: Parameters) => {
+const useAddToCart = ({ userInfo, cart, setCart }: Parameters) => {
   return (product: ICartProduct) => {
-    if (userId) {
+    if (userInfo) {
       const alreadyAdded = cart.find((prod) => prod.id === product.id);
 
       if (alreadyAdded) {
@@ -76,6 +77,7 @@ const useAddToCart = ({ userId, cart, setCart }: Parameters) => {
         );
       }
     } else {
+      console.log(userInfo)
       window.alert("Faça login para acessar o carrinho");
     }
   };

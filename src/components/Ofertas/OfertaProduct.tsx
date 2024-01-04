@@ -7,9 +7,8 @@ import { IProduct } from "../../interfaces/IProduct";
 import useCart from "../../hooks/useCart";
 import { cartState } from "../../state/atom";
 import { useSetRecoilState } from "recoil";
-import { ICartProduct } from "../../interfaces/ICart";
-import useUserId from "../../hooks/useUserId";
 import useAddToCart from "../../hooks/useAddToCart";
+import { IUser } from "../../interfaces/IUser";
 
 const StyledBox = styled(Box)`
   height: 150px;
@@ -61,13 +60,16 @@ const StyledImage = styled.img`
   height: 100%;
 `;
 
-const OfertaProduct = ({ name, price, image, id }: IProduct) => {
+interface Props extends IProduct {
+  userInfo: IUser | null
+}
+
+const OfertaProduct = ({ name, price, image, id, userInfo }: Props) => {
   const cart = useCart();
-  const userId = useUserId();
 
   const setCart = useSetRecoilState(cartState);
 
-  const handleSetCart = useAddToCart({ userId, cart, setCart });
+  const handleSetCart = useAddToCart({ userInfo, cart, setCart });
 
   const comprar = async (plantaID: number) => {
     await axios

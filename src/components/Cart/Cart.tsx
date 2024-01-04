@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
-import useUserId from "../../hooks/useUserId";
 import { H1, P } from "../Home/SignInBox/SignInBox";
 import { StyledSection } from "../Ofertas/Ofertas";
-import { IUser } from "../../interfaces/IUser";
 import useCart from "../../hooks/useCart";
 import CartProduct from "./CartProduct";
 import styled from "styled-components";
 import { StyledBox as Box } from "../Box";
-import useGetUserInfo from "../../hooks/useGetUserInfo";
-import GooglePayButton from "@google-pay/button-react";
 import { Button } from "@mui/material";
 import axios from "axios";
+import { useUserInfo } from "../../hooks/useUserInfo";
 
 export const FlexCart = styled.div`
   display: flex;
@@ -56,17 +53,13 @@ const H3 = styled(H1)`
   font-size: 28px;
 `;
 
-const Form = styled.form`
-  width: 100%;
-`;
-
 const Cart = () => {
-  const [userInfo, setUserInfo] = useState<IUser | null>();
   const [totalPrice, setTotalPrice] = useState<number | undefined>();
-
-  const userId = useUserId();
   const cart = useCart();
-  const getUserInfo = useGetUserInfo();
+
+  const userInfo = useUserInfo();
+
+  console.log(typeof userInfo)
 
   const handlePayment = async () => {
     await axios
@@ -74,7 +67,7 @@ const Cart = () => {
         cart: cart,
       })
       .then((response) => {
-        window.location.href = response.data.href
+        window.location.href = response.data.href;
       });
   };
 
@@ -91,17 +84,13 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    getUserInfo({ userId, setUserInfo });
-  }, [userId]);
-
-  useEffect(() => {
     handleTotalPrice();
   }, [cart]);
 
   return (
     <StyledSection>
       <H1>Seu Carrinho</H1>
-      {userId ? (
+      {userInfo ? (
         <>
           <P>Carrinho de {userInfo?.name}</P>
           <StyledDiv>
@@ -109,6 +98,7 @@ const Cart = () => {
               <FlexCart>
                 {cart.map((product) => (
                   <CartProduct
+                    userInfo={userInfo}
                     key={product.id}
                     id={product.id}
                     number={product.number}
