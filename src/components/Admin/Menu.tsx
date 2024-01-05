@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import LoginButton from "../LoginButton";
+import Logo from "../../assets/logo.png";
 
 const Nav = styled.nav<{ $isOpen?: boolean }>`
   display: flex;
@@ -43,7 +44,7 @@ const Menu = () => {
   return (
     <div>
       <Nav>
-        Admin Casa Verde
+        <img src={Logo} alt="Logo Casa Verde" />
         <Ul>
           {/* <StyledLink to={'/'}>Como Fazer</StyledLink>
           <span>/</span> */}

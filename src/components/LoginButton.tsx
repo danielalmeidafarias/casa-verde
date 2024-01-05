@@ -6,7 +6,8 @@ import { CiLogout } from "react-icons/ci";
 import { useEffect } from "react";
 import { useSetUserInfo } from "../hooks/useSetUserInfo";
 import { useUserInfo } from "../hooks/useUserInfo";
-import { IUser } from "@/interfaces/IUser";
+import { IUser } from "../interfaces/IUser";
+import { useSetCart } from "../hooks/useSetCart";
 
 const Button = styled.button`
   background-color: white;
@@ -31,6 +32,7 @@ const Button = styled.button`
 const LoginButton = () => {
   const setUserInfo = useSetUserInfo()
   const userInfo = useUserInfo()
+  const setCart = useSetCart()
 
   const setUserCookie = (user: IUser) => {
     const expiresAt = new Date(Date.now() + 86400000).toUTCString();
@@ -58,7 +60,6 @@ const LoginButton = () => {
               })
               .then((response) => {
                 setUserCookie(response.data);
-                // window.location.reload();
                 setUserInfo(response.data)
               });
           }}
@@ -72,6 +73,7 @@ const LoginButton = () => {
           onClick={() => {
             setUserInfo(null)
             useDeleteCookies();
+            setCart([])
           }}
         >
           <CiLogout />

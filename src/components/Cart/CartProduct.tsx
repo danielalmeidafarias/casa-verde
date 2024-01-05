@@ -12,7 +12,7 @@ import { cartState } from "../../state/atom";
 import useRemoveFromCart from "../../hooks/useRemoveFromCart";
 import { IUser } from "../../interfaces/IUser";
 
-const StyledBox = styled(Box)`
+export const StyledBox = styled(Box)`
   height: 40px;
   /* width: 500px; */
   width: 50vw;

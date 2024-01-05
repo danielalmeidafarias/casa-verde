@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
-import {  useState } from "react";
+import { useState } from "react";
 import { Twirl as Hamburger } from "hamburger-react";
 import LoginButton from "./LoginButton";
 import { useUserInfo } from "../hooks/useUserInfo";
@@ -72,7 +72,7 @@ const StyledLink = styled(Link)`
 
 const Menu = () => {
   const [mobileIsOpen, setMobileIsOpen] = useState(false);
-  const userInfo = useUserInfo()
+  const userInfo = useUserInfo();
 
   return (
     <>
@@ -82,8 +82,17 @@ const Menu = () => {
           <StyledLink to={"/"}>Como Fazer</StyledLink>
           <span>/</span>
           <StyledLink to={"/ofertas"}>Ofertas</StyledLink>
-          <span>/</span>
-          <StyledLink to={"/carrinho"}>Meu Carrinho</StyledLink>
+          {userInfo ? (
+            <>
+              <span>/</span>
+              <StyledLink to={"/carrinho"}>Meu carrinho</StyledLink>
+              <span>/</span>
+              <StyledLink to={"/pedidos"}>Meus pedidos</StyledLink>
+            </>
+          ) : (
+            <div>Faça login para acessar o carrinho e pedidos</div>
+          )}
+
           {userInfo?.isAdmin && (
             <>
               <span>/</span>
@@ -106,6 +115,7 @@ const Menu = () => {
           <StyledLink to={"/"}>Como Fazer</StyledLink>
           <StyledLink to={"/ofertas"}>Ofertas</StyledLink>
           <StyledLink to={"/carrinho"}>Meu Carrinho</StyledLink>
+          <StyledLink to={"/pedidos"}>Meus pedidos</StyledLink>
           <LoginButton />
         </MobileUl>
       </MobileNav>

@@ -1,11 +1,12 @@
-import { StyledSection } from "../Ofertas/Ofertas";
+import { Navigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const PaymentSuccess = () => {
-  return (  
-    <StyledSection>
-      Pagamento realizado com sucesso!
-    </StyledSection>
-  );
-}
- 
+  useEffect(() => {
+    window.alert("Pagamento realizado com sucesso!");
+  }, []);
+
+  return <Navigate to={"/pedidos"} />;
+};
+
 export default PaymentSuccess;

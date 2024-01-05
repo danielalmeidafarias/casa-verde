@@ -10,9 +10,11 @@ import PaymentSuccess from "./components/Payment/PaymentSuccess";
 import PaymentFailed from "./components/Payment/PaymentFailed";
 import Unvaliable from "./components/Payment/Unvaliable";
 import { useUserInfo } from "./hooks/useUserInfo";
+import { H1 } from "./components/Home/SignInBox/SignInBox";
+import Pedidos from "./components/Pedidos/Pedidos";
 
 function App() {
-  const userInfo = useUserInfo()
+  const userInfo = useUserInfo();
 
   if (!userInfo) {
     localStorage.clear();
@@ -24,6 +26,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/ofertas" element={<Ofertas />} />
         <Route path="/carrinho" element={<Cart />} />
+        <Route path="/pedidos" element={<Pedidos />} />
+
         <Route path="/paymentsuccess" element={<PaymentSuccess />} />
         <Route path="/paymentfailed" element={<PaymentFailed />} />
         <Route path="/unvaliable" element={<Unvaliable />} />
@@ -41,13 +45,11 @@ function App() {
                 alignItems: "center",
               }}
             >
-              Administração Casa Verde
+              <H1>Administração Casa Verde</H1>
             </div>
           }
         />
-
         <Route path="/admin/products" element={<Admin />} />
-
         <Route path="/admin/sendemail" element={<SendEmail />} />
       </Route>
     </Routes>

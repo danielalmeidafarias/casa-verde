@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { H1, P } from "../Home/SignInBox/SignInBox";
+import { H1} from "../Home/SignInBox/SignInBox";
 import { StyledSection } from "../Ofertas/Ofertas";
 import useCart from "../../hooks/useCart";
 import CartProduct from "./CartProduct";
@@ -8,6 +8,7 @@ import { StyledBox as Box } from "../Box";
 import { Button } from "@mui/material";
 import axios from "axios";
 import { useUserInfo } from "../../hooks/useUserInfo";
+import { useNavigate } from "react-router-dom";
 
 export const FlexCart = styled.div`
   display: flex;
@@ -53,20 +54,29 @@ const H3 = styled(H1)`
   font-size: 28px;
 `;
 
+const Span = styled.span`
+  color: black;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+  
+`
+
 const Cart = () => {
   const [totalPrice, setTotalPrice] = useState<number | undefined>();
   const cart = useCart();
 
   const userInfo = useUserInfo();
 
-  console.log(typeof userInfo)
-
   const handlePayment = async () => {
     await axios
       .post(`http://localhost:3000/api/payment`, {
         cart: cart,
+        userId: userInfo?.id
       })
-      .then((response) => {
+      .then(async (response) => {
+        // console.log(cart)
         window.location.href = response.data.href;
       });
   };
@@ -83,6 +93,8 @@ const Cart = () => {
     }
   };
 
+  const navigate = useNavigate()
+
   useEffect(() => {
     handleTotalPrice();
   }, [cart]);
@@ -92,20 +104,28 @@ const Cart = () => {
       <H1>Seu Carrinho</H1>
       {userInfo ? (
         <>
-          <P>Carrinho de {userInfo?.name}</P>
+          <p>Carrinho de {userInfo?.name}</p>
           <StyledDiv>
             <div>
               <FlexCart>
-                {cart.map((product) => (
-                  <CartProduct
-                    userInfo={userInfo}
-                    key={product.id}
-                    id={product.id}
-                    number={product.number}
-                    price={product.price}
-                    name={product.name}
-                  />
-                ))}
+                {
+                  cart[0] ? (
+                    cart.map((product) => (
+                      <CartProduct
+                        userInfo={userInfo}
+                        key={product.id}
+                        id={product.id}
+                        number={product.number}
+                        price={product.price}
+                        name={product.name}
+                      />
+                    ))
+                  ) : 
+                  <p>
+                    Seu carrinho está vazio! <Span onClick={() => navigate('/ofertas')}>Vá às compras!!!</Span> 
+                  </p>
+                }
+                {}
               </FlexCart>
             </div>
 
@@ -113,18 +133,6 @@ const Cart = () => {
               <StyledBox>
                 <H3 as="h3">Resumo do pedido</H3>
                 <p>Total: R$ {totalPrice},00</p>
-                {/* <Form action="http://localhost:3000/api/payment" method="POST">
-                  <Button
-                  onClick={handlePayment}
-
-                    type="submit"
-                    sx={{ width: "100%" }}
-                    variant="contained"
-                  >
-                    Continuar
-                  </Button>
-                </Form> */}
-
                 <Button
                   onClick={handlePayment}
                   sx={{ width: "100%" }}

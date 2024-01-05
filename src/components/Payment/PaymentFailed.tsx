@@ -1,11 +1,12 @@
-import { StyledSection } from "../Ofertas/Ofertas";
+import { Navigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const PaymentFailed = () => {
-  return (  
-    <StyledSection>
-      Pagamento falhou!
-    </StyledSection>
-  );
-}
- 
+  useEffect(() => {
+    window.alert("O pagamento falhou, por favor tente novamente");
+  }, []);
+
+  return <Navigate to={"/carrinho"} />;
+};
+
 export default PaymentFailed;
