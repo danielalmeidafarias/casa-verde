@@ -5,11 +5,9 @@ import { StyledBox as Box } from "../Cart/CartProduct";
 import styled from "styled-components";
 import { Button } from "@mui/material";
 import { FaChevronDown } from "react-icons/fa";
-
-interface Props {
-  id: string;
-  userId: string;
-}
+import { IUser } from "@/interfaces/IUser";
+import useHandlePayment from "../../hooks/useHandlePayment";
+import { IoClose } from "react-icons/io5";
 
 const StyledBox = styled(Box)`
   height: auto;
@@ -38,7 +36,7 @@ const UpBox = styled.div`
 `;
 
 const PedidoInfoDiv = styled.div<{ $isOpen: boolean }>`
-  display: ${props => props.$isOpen ? 'flex' : 'none'};
+  display: ${(props) => (props.$isOpen ? "flex" : "none")};
 
   width: 100%;
   width: 100%;
@@ -70,35 +68,34 @@ const P = styled.p`
 `;
 
 const ProductTitle = styled.h1`
-width: 30%;
-`
+  width: 30%;
+`;
 const ProductPrice = styled.p`
-width: 30%;
-display: flex;
-justify-content: flex-end;
-`
+  width: 30%;
+  display: flex;
+  justify-content: flex-end;
+`;
 
-const PedidoItem = ({ id, userId }: Props) => {
-  const [pedidoInfo, setPedidoInfo] = useState<IPedido>();
+const StatusP = styled.p<{ $status: string }>`
+  color: ${(props) => props.$status === `complete` && `green`};
+  color: ${(props) => props.$status === `expired` && `red`};
+  color: ${(props) => props.$status === `open` && `blue`};
+`;
+interface Props {
+  pedidoInfo: IPedido;
+  userInfo: IUser;
+}
+
+const PedidoItem = ({ pedidoInfo, userInfo }: Props) => {
   const [pedidoDate, setPedidoDate] = useState<string>();
   const [pedidoStatus, setPedidoStatus] = useState<string>();
-  const [detailsIsOpen, setDetailsIsOpen] = useState<boolean>(false)
-
-  const getPedidoInfo = async () => {
-    axios
-      .get<IPedido>(`http://localhost:3000/api/pedidos/${userId}/${id}`)
-      .then((response) => {
-        setPedidoInfo(response.data);
-      });
-  };
-
-  useEffect(() => {
-    getPedidoInfo();
-  }, []);
+  const [detailsIsOpen, setDetailsIsOpen] = useState<boolean>(false);
+  const handlePayment = useHandlePayment(pedidoInfo.cart, userInfo);
 
   useEffect(() => {
     if (pedidoInfo) {
       const date = new Date(pedidoInfo?.date);
+      console.log(pedidoInfo?.date)
       setPedidoDate(date.toLocaleString());
     }
 
@@ -114,52 +111,109 @@ const PedidoItem = ({ id, userId }: Props) => {
   const paymentFunction = () => {
     if (pedidoInfo && pedidoInfo?.status == "open") {
       window.location.href = pedidoInfo?.paymentUrl;
-    } else {
-      setDetailsIsOpen(!detailsIsOpen)
+    } else if (
+      pedidoInfo.status === `complete` ||
+      pedidoInfo.status === `expired`
+    ) {
+      handlePayment();
     }
   };
 
-  // console.log(pedidoInfo?.date);
+  const cancelPedido = async () => {
+    await axios
+      .put(`http://localhost:3000/api/pedidos/${userInfo.id}/cancel`, {
+        session_id: pedidoInfo.id,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          window.alert(`Pedido ${pedidoInfo.id} cancelado com sucesso`);
+          window.location.reload();
+        }
+      })
+      .catch((err: any) => {
+        console.error(err);
+      });
+  };
+
+  const refound = async () => {
+    await axios
+      .put(`http://localhost:3000/api/pedidos/${userInfo.id}/refound`, {
+        payment_intent: pedidoInfo.paymentIntent,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          window.alert(`Reembolso realizado com sucesso`);
+          window.location.reload();
+        }
+      })
+      .catch((err: any) => {
+        console.error(err);
+      });
+  };
 
   return (
-    <>
-      {pedidoInfo?.status !== "expired" && (
-        <StyledBox>
-          <UpBox>
-            <P
-            onClick={() => setDetailsIsOpen(!detailsIsOpen)}
-            >
-              <FaChevronDown />
-              {pedidoDate}
-            </P>
-            <p>{pedidoStatus}</p>
-            <p>R${pedidoInfo?.subTotal},00</p>
+      <StyledBox>
+        <UpBox>
+          <P onClick={() => setDetailsIsOpen(!detailsIsOpen)}>
+            <FaChevronDown />
+            {pedidoDate}
+          </P>
+          <StatusP $status={pedidoInfo.status}>{pedidoStatus}</StatusP>
+          <p>R${pedidoInfo?.subTotal},00</p>
+          {pedidoInfo.status === `open` ? (
             <Button
               onClick={paymentFunction}
               variant="contained"
               sx={{ width: "70px" }}
-              // disabled={pedidoInfo?.status == "complete"}
-              color={pedidoInfo?.status == "complete" ? "success" : "info"}
+              color={"info"}
             >
-              {pedidoInfo?.status == "complete" ? "Pago" : "Pagar"}
+              Pagar
             </Button>
-          </UpBox>
-          <DownBox>
-            {pedidoInfo?.cart.map((item) => (
-              <>
-                {detailsIsOpen && <BlackLine />}
-                
-                <PedidoInfoDiv $isOpen={detailsIsOpen}>
-                  <ProductTitle>{item.name}</ProductTitle>
-                  <p>{item.number}</p>
-                  <ProductPrice>R${item.price * item.number},00</ProductPrice>
-                </PedidoInfoDiv>
-              </>
-            ))}
-          </DownBox>
-        </StyledBox>
-      )}
-    </>
+          ) : (
+            <Button
+            onClick={paymentFunction}
+            variant="contained">
+              {pedidoInfo.status === `complete`
+                ? `Comprar Novamente`
+                : `Tentar Novamente`}
+            </Button>
+          )}
+        </UpBox>
+        <DownBox>
+          {pedidoInfo?.cart.map((item) => (
+            <>
+              {detailsIsOpen && <BlackLine />}
+
+              <PedidoInfoDiv $isOpen={detailsIsOpen}>
+                <ProductTitle>{item.name}</ProductTitle>
+                <p>{item.number}</p>
+                <ProductPrice>R${item.price * item.number},00</ProductPrice>
+              </PedidoInfoDiv>
+            </>
+          ))}
+          {pedidoInfo.status === `open` && detailsIsOpen && (
+            <Button
+              onClick={cancelPedido}
+              color="warning"
+              variant="contained"
+              sx={{ width: `100%` }}
+            >
+              Cancelar pedido
+            </Button>
+          )}
+
+          {pedidoInfo.status === `complete` && detailsIsOpen && (
+            <Button
+              onClick={refound}
+              color="warning"
+              variant="contained"
+              sx={{ width: `100%` }}
+            >
+              Cancelar pedido
+            </Button>
+          )}
+        </DownBox>
+      </StyledBox>
   );
 };
 

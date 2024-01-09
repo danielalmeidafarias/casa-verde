@@ -6,9 +6,9 @@ import CartProduct from "./CartProduct";
 import styled from "styled-components";
 import { StyledBox as Box } from "../Box";
 import { Button } from "@mui/material";
-import axios from "axios";
 import { useUserInfo } from "../../hooks/useUserInfo";
 import { useNavigate } from "react-router-dom";
+import useHandlePayment from "../../hooks/useHandlePayment";
 
 export const FlexCart = styled.div`
   display: flex;
@@ -69,17 +69,19 @@ const Cart = () => {
 
   const userInfo = useUserInfo();
 
-  const handlePayment = async () => {
-    await axios
-      .post(`http://localhost:3000/api/payment`, {
-        cart: cart,
-        userId: userInfo?.id
-      })
-      .then(async (response) => {
-        // console.log(cart)
-        window.location.href = response.data.href;
-      });
-  };
+  const handlePayment = useHandlePayment(cart, userInfo)
+
+  // const handlePayment = async () => {
+  //   await axios
+  //     .post(`http://localhost:3000/api/payment`, {
+  //       cart: cart,
+  //       userId: userInfo?.id
+  //     })
+  //     .then(async (response) => {
+  //       // console.log(cart)
+  //       window.location.href = response.data.href;
+  //     });
+  // };
 
   const handleTotalPrice = () => {
     if (cart[0]) {

@@ -9,5 +9,6 @@ export interface IPedido {
   userId: string;
   date: Date;
   subTotal: number;
-  paymentUrl: string
+  paymentUrl: string;
+  paymentIntent?: string;
 }

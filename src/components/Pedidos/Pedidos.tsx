@@ -4,14 +4,15 @@ import { H1 } from "../Home/SignInBox/SignInBox";
 import { useUserInfo } from "../../hooks/useUserInfo";
 import PedidoItem from "./PedidoItem";
 import axios from "axios";
+import { IPedido } from "@/interfaces/IPedido";
 
 const Pedidos = () => {
-  const [pedidos, setPedidos] = useState<{ id: string }[]>();
+  const [pedidos, setPedidos] = useState<IPedido[]>();
   const userInfo = useUserInfo();
 
   const getPedidos = async () => {
     await axios
-      .get<{ id: string }[]>(
+      .get<IPedido[]>(
         `http://localhost:3000/api/pedidos/${userInfo?.id}`
       )
       .then((response) => {
@@ -30,7 +31,9 @@ const Pedidos = () => {
         <>
           <div>Pedidos de {userInfo.name}</div>
           {pedidos && pedidos[0] ? (
-            pedidos.map((pedido) => <PedidoItem key={pedido.id} id={pedido.id} userId={userInfo.id}/>)
+            pedidos.map((pedido) => <PedidoItem 
+            userInfo={userInfo}
+            pedidoInfo={pedido} key={pedido.id}/>)
           ) : (
             <p>
               {"Que pena, parece que você ainda não realizou nenhum pedido :("}

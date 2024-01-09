@@ -6,7 +6,7 @@ const PaymentFailed = () => {
     window.alert("O pagamento falhou, por favor tente novamente");
   }, []);
 
-  return <Navigate to={"/carrinho"} />;
+  return <Navigate to={"/pedidos"} />;
 };
 
 export default PaymentFailed;
