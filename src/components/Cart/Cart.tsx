@@ -68,20 +68,8 @@ const Cart = () => {
   const cart = useCart();
 
   const userInfo = useUserInfo();
-
   const handlePayment = useHandlePayment(cart, userInfo)
-
-  // const handlePayment = async () => {
-  //   await axios
-  //     .post(`http://localhost:3000/api/payment`, {
-  //       cart: cart,
-  //       userId: userInfo?.id
-  //     })
-  //     .then(async (response) => {
-  //       // console.log(cart)
-  //       window.location.href = response.data.href;
-  //     });
-  // };
+  const navigate = useNavigate()
 
   const handleTotalPrice = () => {
     if (cart[0]) {
@@ -94,8 +82,6 @@ const Cart = () => {
       );
     }
   };
-
-  const navigate = useNavigate()
 
   useEffect(() => {
     handleTotalPrice();
@@ -127,7 +113,6 @@ const Cart = () => {
                     Seu carrinho está vazio! <Span onClick={() => navigate('/ofertas')}>Vá às compras!!!</Span> 
                   </p>
                 }
-                {}
               </FlexCart>
             </div>
 

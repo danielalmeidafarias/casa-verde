@@ -7,7 +7,6 @@ import { Button } from "@mui/material";
 import { FaChevronDown } from "react-icons/fa";
 import { IUser } from "@/interfaces/IUser";
 import useHandlePayment from "../../hooks/useHandlePayment";
-import { IoClose } from "react-icons/io5";
 
 const StyledBox = styled(Box)`
   height: auto;
