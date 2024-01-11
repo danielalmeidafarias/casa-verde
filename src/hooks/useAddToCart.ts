@@ -53,15 +53,22 @@ const useAddToCart = ({ userInfo, cart, setCart }: Parameters) => {
           window.alert("Quantidade do produto indisponível");
         }
       } else {
-        setCart([
-          ...cart,
-          {
-            id: product.id,
-            number: 1,
-            price: product.price,
-            name: product.name,
-          },
-        ]);
+        let available = product.number > 0;
+
+        if (available) {
+          setCart([
+            ...cart,
+            {
+              id: product.id,
+              number: 1,
+              price: product.price,
+              name: product.name,
+            },
+          ]);
+        } else {
+          window.alert("Produto indisponível");
+          window.location.reload()
+        }
 
         localStorage.setItem(
           "cart",
@@ -77,7 +84,7 @@ const useAddToCart = ({ userInfo, cart, setCart }: Parameters) => {
         );
       }
     } else {
-      console.log(userInfo)
+      console.log(userInfo);
       window.alert("Faça login para acessar o carrinho");
     }
   };
