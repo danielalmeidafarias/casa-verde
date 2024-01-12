@@ -144,7 +144,7 @@ const Products = () => {
           <TableCell>
             <TextField
               required
-              label="Quantidade"
+              label="Estoque"
               variant="filled"
               value={number}
               onChange={(e) => setNumber(Number(e.target.value))}
@@ -198,7 +198,7 @@ const Products = () => {
           <TableRow>
             <TableCell>Nome</TableCell>
             <TableCell>Preço</TableCell>
-            <TableCell>Quantidade</TableCell>
+            <TableCell>Estoque</TableCell>
             <TableCell>Promoção</TableCell>
             <TableCell>Imagem</TableCell>
           </TableRow>

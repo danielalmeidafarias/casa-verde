@@ -38,26 +38,33 @@ const ProductItem = ({
   const [editOnSale, setEditOnSale] = useState<boolean | undefined>(onSale);
   const [editNumber, setEditNumber] = useState<number>(number);
 
-  const userInfo = useUserInfo()
+  const userInfo = useUserInfo();
 
   const deleteItem = async (id: number) => {
-    await axios.delete(`http://localhost:3000/admin/plantas?id=${id}&adminId=${userInfo?.id}`).then(() => {
-      getPlantas();
-    });
+    await axios
+      .delete(
+        `http://localhost:3000/admin/plantas?id=${id}&adminId=${userInfo?.id}`
+      )
+      .then(() => {
+        getPlantas();
+      });
   };
 
   const editItem = async () => {
     if (edit) {
       await axios
-        .put(`http://localhost:3000/admin/plantas?id=${id}&adminId=${userInfo?.id}`, {
-          plantaAtualizada: {
-            name: editName,
-            image: editImage,
-            price: editPrice,
-            number: editNumber,
-            onSale: editOnSale,
+        .put(
+          `http://localhost:3000/admin/plantas?id=${id}&adminId=${userInfo?.id}`,
+          {
+            plantaAtualizada: {
+              name: editName,
+              image: editImage,
+              price: editPrice,
+              number: editNumber,
+              onSale: editOnSale,
+            },
           }
-        })
+        )
         .then(() => {
           getPlantas();
         });
@@ -134,7 +141,8 @@ const ProductItem = ({
 
           <TableCell>
             <TextField
-              value={editNumber}
+              placeholder="Adicionar"
+              // value={editNumber}
               onChange={(e) => setEditNumber(Number(e.target.value))}
             />
           </TableCell>
