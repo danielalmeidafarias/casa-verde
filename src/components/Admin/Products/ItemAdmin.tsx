@@ -13,6 +13,7 @@ import { useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { GrRevert } from "react-icons/gr";
 import { IoMdClose } from "react-icons/io";
+import { useUserInfo } from "../../../hooks/useUserInfo";
 
 interface Props extends IProduct {
   getPlantas: () => void;
@@ -37,8 +38,10 @@ const ProductItem = ({
   const [editOnSale, setEditOnSale] = useState<boolean | undefined>(onSale);
   const [editNumber, setEditNumber] = useState<number>(number);
 
+  const userInfo = useUserInfo()
+
   const deleteItem = async (id: number) => {
-    await axios.delete(`http://localhost:3000/api/plantas/${id}`).then(() => {
+    await axios.delete(`http://localhost:3000/admin/plantas?id=${id}&adminId=${userInfo?.id}`).then(() => {
       getPlantas();
     });
   };
@@ -46,12 +49,14 @@ const ProductItem = ({
   const editItem = async () => {
     if (edit) {
       await axios
-        .put(`http://localhost:3000/api/plantas/${id}`, {
-          name: editName,
-          image: editImage,
-          price: editPrice,
-          number: editNumber,
-          onSale: editOnSale,
+        .put(`http://localhost:3000/admin/plantas?id=${id}&adminId=${userInfo?.id}`, {
+          plantaAtualizada: {
+            name: editName,
+            image: editImage,
+            price: editPrice,
+            number: editNumber,
+            onSale: editOnSale,
+          }
         })
         .then(() => {
           getPlantas();

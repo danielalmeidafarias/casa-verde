@@ -37,16 +37,7 @@ function App() {
         <Route
           path="/admin"
           element={
-            <div
-              style={{
-                marginTop: "80px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <H1>Administração Casa Verde</H1>
-            </div>
+            <Admin />
           }
         />
         <Route path="/admin/products" element={<Admin />} />

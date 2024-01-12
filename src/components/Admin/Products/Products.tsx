@@ -16,6 +16,8 @@ import {
 } from "@mui/material";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { H1 } from "../../Home/SignInBox/SignInBox";
+import { useUserInfo } from "../../../hooks/useUserInfo";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
   const [plantas, setPlantas] = useState<IProduct[]>();
@@ -26,15 +28,25 @@ const Products = () => {
   const [imagem, setImagem] = useState<string | ArrayBuffer | null>("");
   const [number, setNumber] = useState<number>();
 
+  const userInfo = useUserInfo();
+
+  const navigate = useNavigate()
+
   const getPlantas = async () => {
-    await axios.get(`http://localhost:3000/api/plantas`).then((response) => {
-      setPlantas(response.data);
-    });
+    await axios
+      .get(`http://localhost:3000/admin/plantas/?adminId=${userInfo?.id}`, {
+        data: {
+          adminId: userInfo?.id,
+        },
+      })
+      .then((response) => {
+        setPlantas(response.data);
+      }).catch(() => {
+        navigate("/")
+      })
   };
 
-  const addPlanta = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const addPlanta = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
     if (!nome) {
@@ -49,12 +61,19 @@ const Products = () => {
     }
 
     await axios
-      .post<IProduct>(`http://localhost:3000/api/plantas`, {
-        name: nome,
-        image: imagem,
-        price: preco,
-        onSale: onSale,
-      })
+      .post<IProduct>(
+        `http://localhost:3000/admin/plantas`,
+        {
+          adminId: userInfo?.id,
+          planta: {
+            name: nome,
+            image: imagem,
+            price: preco,
+            onSale: onSale,
+            number: number
+          },
+        }
+      )
       .then((response) => {
         if (response.status === 200) {
           window.alert("Produto adicionado com sucesso!");

@@ -1,8 +1,11 @@
 import { Button, TextField } from "@mui/material";
-import { Container, Box } from "@mui/system";
+import { Box } from "@mui/system";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { H1 } from "../../Home/SignInBox/SignInBox";
+import { useUserInfo } from "../../../hooks/useUserInfo";
+import { useNavigate } from "react-router-dom";
+import { StyledSection } from "../../../components/Ofertas/Ofertas";
 
 const SendEmail = () => {
   const [assunto, setAssunto] = useState<string>();
@@ -11,9 +14,27 @@ const SendEmail = () => {
 
   const htmlPadrao = `<h1></h1>\n<h3></h3>\n<p></p>\n<p></p>\n<p></p>`;
 
+  const navigate = useNavigate()
+
+
+  const userInfo = useUserInfo()
+  const verifyAdmin = async () => {
+    await axios.get(`http://localhost:3000/admin/newsletter/send?adminId=${userInfo?.id}`)
+    .catch(() => {
+      navigate("/")
+    })
+  }
+
+  useEffect(() => {
+
+    verifyAdmin()
+
+  }, [userInfo])
+
   const sendEmail = async () => {
     await axios
-      .post("http://localhost:3000/api/newsletter/send", {
+      .post("http://localhost:3000/admin/newsletter/send", {
+        adminId: userInfo?.id,
         subject: assunto,
         text: conteudo,
         html: conteudoHtml,
@@ -30,7 +51,7 @@ const SendEmail = () => {
   };
 
   return (
-    <Container sx={{ marginTop: "80px" }}>
+    <StyledSection >
       <H1
         style={{
           width: "100vw",
@@ -85,7 +106,7 @@ const SendEmail = () => {
           Enviar Email
         </Button>
       </Box>
-    </Container>
+    </StyledSection>
   );
 };
 
