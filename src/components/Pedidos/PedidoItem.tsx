@@ -91,21 +91,6 @@ const DownBox = styled.div`
   gap: 10px;
 `;
 
-const MobileDownBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  background-color: transparent;
-  gap: 10px;
-
-  @media screen and (max-width: 768px) {
-    width: 80vw;
-    height: 60px;
-  }
-`;
-
 const P = styled.p`
   overflow: hidden;
   font-weight: 500;

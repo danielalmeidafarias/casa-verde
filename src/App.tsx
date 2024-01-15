@@ -10,7 +10,6 @@ import PaymentSuccess from "./components/Payment/PaymentSuccess";
 import PaymentFailed from "./components/Payment/PaymentFailed";
 import Unvaliable from "./components/Payment/Unvaliable";
 import { useUserInfo } from "./hooks/useUserInfo";
-import { H1 } from "./components/Home/SignInBox/SignInBox";
 import Pedidos from "./components/Pedidos/Pedidos";
 
 function App() {
