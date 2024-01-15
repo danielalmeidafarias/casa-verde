@@ -9,13 +9,6 @@ const StyledHome = styled.div`
   height: 100vh;
 `
 
-const StyledDiv = styled.div`
-  /* width: 100%; */
-  /* display: flex; */
-  justify-content: center;
- 
-`
-
 const StyledImg = styled.img`
   height: 90vh;
   position: absolute;

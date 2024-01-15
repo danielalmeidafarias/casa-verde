@@ -14,24 +14,29 @@ import { IUser } from "../../interfaces/IUser";
 
 export const StyledBox = styled(Box)`
   height: 40px;
-  /* width: 500px; */
   width: 50vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
   background-color: var(--backgroundColor);
   border-radius: 10px;
   padding: 20px;
 
   @media screen and (max-width: 768px) {
     width: 80vw;
-    height: 60px;
+    height: 70px;
+    flex-direction: column;
+    gap: 10px;
   }
 `;
 
 const StyledImage = styled.img`
   height: 100%;
+`;
+
+const ImageDiv = styled.div`
+  height: 100%;
+  width: 60px;
 `;
 
 const CounterDiv = styled.div`
@@ -59,11 +64,22 @@ const RightDiv = styled.div`
   align-items: center;
 
   @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+const LeftDiv = styled.div`
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media screen and (max-width: 768px) {
+    width: 100%;
   }
 `;
 
 interface Props extends ICartProduct {
-  userInfo: IUser
+  userInfo: IUser;
 }
 
 const CartProduct = ({ id, number, userInfo }: Props) => {
@@ -101,7 +117,7 @@ const CartProduct = ({ id, number, userInfo }: Props) => {
           id: data.id,
           number: data.number,
           price: data.price,
-          name: data.name
+          name: data.name,
         });
       })
       .catch((err: any) => {
@@ -118,7 +134,7 @@ const CartProduct = ({ id, number, userInfo }: Props) => {
           id: data.id,
           number: data.number,
           price: data.price,
-          name: data.name
+          name: data.name,
         });
       })
       .catch((err: any) => {
@@ -130,28 +146,35 @@ const CartProduct = ({ id, number, userInfo }: Props) => {
     getProduct();
   }, []);
   return (
-    <StyledBox>
-      <StyledImage src={image} alt="" />
+    <>
+      <StyledBox>
+        <LeftDiv style={{ height: "40px" }}>
+          <ImageDiv>
+            <StyledImage src={image} alt="" />
+          </ImageDiv>
 
-      <h1>{name}</h1>
-      <RightDiv>
-        <CounterDiv>
-          <Button onClick={() => addProduct(id)}>
-            <FaPlus />
-          </Button>
-          <p>{number}</p>
+          <h1>{name}</h1>
+        </LeftDiv>
 
-          <Button
-            onClick={() => {
-              removeProduct(id);
-            }}
-          >
-            <FaMinus />
-          </Button>
-        </CounterDiv>
-        <p>R$ {price ? price * number : null},00</p>
-      </RightDiv>
-    </StyledBox>
+        <RightDiv>
+          <CounterDiv>
+            <Button onClick={() => addProduct(id)}>
+              <FaPlus />
+            </Button>
+            <p>{number}</p>
+
+            <Button
+              onClick={() => {
+                removeProduct(id);
+              }}
+            >
+              <FaMinus />
+            </Button>
+          </CounterDiv>
+          <p>R$ {price ? price * number : null},00</p>
+        </RightDiv>
+      </StyledBox>
+    </>
   );
 };
 

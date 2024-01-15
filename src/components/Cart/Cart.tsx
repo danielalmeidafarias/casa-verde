@@ -44,12 +44,14 @@ const StyledBox = styled(Box)`
   padding: 20px;
 
   @media screen and (max-width: 768px) {
-    height: 100px;
+    height: auto;
     width: 80vw;
+    gap: 10px;
   }
 `;
 
 const H3 = styled(H1)`
+padding: 0;
   text-align: start;
   font-size: 28px;
 `;

@@ -48,7 +48,7 @@ const MobileUl = styled(Ul)<{ $isOpen: boolean }>`
   flex-direction: column;
   justify-content: space-evenly;
   width: 100vw;
-  height: auto;
+  height: 200px;
   padding-top: 20px;
   padding-bottom: 20px;
   top: 68px;

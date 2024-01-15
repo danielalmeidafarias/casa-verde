@@ -18,9 +18,11 @@ const StyledBox = styled(Box)`
   background-color: var(--backgroundColor);
 `;
 
-const H1 = styled(StyledH1)`
+const H1 = styled.h1`
   font-size: 24px;
   text-align: left;
+  font-family: var(--elsie);
+  font-weight: 900;
 `;
 const P = styled(StyledP)`
   font-size: 14px;

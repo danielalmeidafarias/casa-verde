@@ -11,6 +11,9 @@ const StyledSignIn = styled.div`
     &::after {
       content: "Veja Abaixo ⬇️";
       font-size: 40px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
   }
 `;
@@ -19,6 +22,10 @@ export const H1 = styled.h1`
   font-size: 80px;
   font-weight: 900;
   text-align: center;
+  @media screen and (max-width: 768px) {
+    padding-bottom: 40px;
+    padding-top: 40px;
+  }
 `;
 
 export const H3 = styled.h3`

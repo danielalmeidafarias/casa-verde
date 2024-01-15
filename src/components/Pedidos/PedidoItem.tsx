@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { StyledBox as Box } from "../Cart/CartProduct";
 import styled from "styled-components";
 import { Button } from "@mui/material";
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { IUser } from "@/interfaces/IUser";
 import useHandlePayment from "../../hooks/useHandlePayment";
 
@@ -12,6 +12,20 @@ const StyledBox = styled(Box)`
   height: auto;
   flex-direction: column;
   gap: 10px;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const MobileStyledBox = styled(Box)`
+  height: auto;
+  flex-direction: column;
+  gap: 10px;
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
 `;
 
 const BlackLine = styled.div`
@@ -34,6 +48,29 @@ const UpBox = styled.div`
   }
 `;
 
+const MobileUpBox = styled.div`
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+
+  @media screen and (max-width: 768px) {
+    width: 80vw;
+    height: 60px;
+  }
+`;
+
+const MobileFlex = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+`;
+
 const PedidoInfoDiv = styled.div<{ $isOpen: boolean }>`
   display: ${(props) => (props.$isOpen ? "flex" : "none")};
 
@@ -53,6 +90,17 @@ const DownBox = styled.div`
   background-color: transparent;
   gap: 10px;
 
+`;
+
+const MobileDownBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  gap: 10px;
+
   @media screen and (max-width: 768px) {
     width: 80vw;
     height: 60px;
@@ -63,7 +111,6 @@ const P = styled.p`
   overflow: hidden;
   font-weight: 500;
   display: flex;
-  cursor: pointer;
 `;
 
 const ProductTitle = styled.h1`
@@ -94,7 +141,7 @@ const PedidoItem = ({ pedidoInfo, userInfo }: Props) => {
   useEffect(() => {
     if (pedidoInfo) {
       const date = new Date(pedidoInfo?.date);
-      console.log(pedidoInfo?.date)
+      console.log(pedidoInfo?.date);
       setPedidoDate(date.toLocaleString());
     }
 
@@ -151,10 +198,20 @@ const PedidoItem = ({ pedidoInfo, userInfo }: Props) => {
   };
 
   return (
+    <>
+      {/* PedidItem para telas grandes */}
       <StyledBox>
         <UpBox>
-          <P onClick={() => setDetailsIsOpen(!detailsIsOpen)}>
-            <FaChevronDown />
+          <P>
+            {detailsIsOpen ? (
+              <FaChevronUp 
+              style={{cursor: "pointer"}}
+              onClick={() => setDetailsIsOpen(!detailsIsOpen)} />
+            ) : (
+              <FaChevronDown 
+              style={{cursor: "pointer"}}
+              onClick={() => setDetailsIsOpen(!detailsIsOpen)} />
+            )}
             {pedidoDate}
           </P>
           <StatusP $status={pedidoInfo.status}>{pedidoStatus}</StatusP>
@@ -169,9 +226,7 @@ const PedidoItem = ({ pedidoInfo, userInfo }: Props) => {
               Pagar
             </Button>
           ) : (
-            <Button
-            onClick={paymentFunction}
-            variant="contained">
+            <Button onClick={paymentFunction} variant="contained">
               {pedidoInfo.status === `complete`
                 ? `Comprar Novamente`
                 : `Tentar Novamente`}
@@ -213,6 +268,79 @@ const PedidoItem = ({ pedidoInfo, userInfo }: Props) => {
           )}
         </DownBox>
       </StyledBox>
+
+      {/* PedidItem para telas pequenas */}
+
+      <MobileStyledBox>
+        <MobileUpBox>
+          <MobileFlex>
+            <P onClick={() => setDetailsIsOpen(!detailsIsOpen)}>{pedidoDate}</P>
+            <StatusP $status={pedidoInfo.status}>{pedidoStatus}</StatusP>
+            <p>R${pedidoInfo?.subTotal},00</p>
+          </MobileFlex>
+          <MobileFlex>
+            {pedidoInfo.status === `open` ? (
+              <Button
+                onClick={paymentFunction}
+                variant="contained"
+                sx={{ width: "100%" }}
+                color={"info"}
+              >
+                Pagar
+              </Button>
+            ) : (
+              <Button
+                sx={{ width: "100%" }}
+                onClick={paymentFunction}
+                variant="contained"
+              >
+                {pedidoInfo.status === `complete`
+                  ? `Comprar Novamente`
+                  : `Tentar Novamente`}
+              </Button>
+            )}
+            <FaChevronDown
+              onClick={() => setDetailsIsOpen(!detailsIsOpen)}
+              size={20}
+            />
+          </MobileFlex>
+        </MobileUpBox>
+        <DownBox>
+          {pedidoInfo?.cart.map((item) => (
+            <>
+              {detailsIsOpen && <BlackLine />}
+
+              <PedidoInfoDiv $isOpen={detailsIsOpen}>
+                <ProductTitle>{item.name}</ProductTitle>
+                <p>{item.number}</p>
+                <ProductPrice>R${item.price * item.number},00</ProductPrice>
+              </PedidoInfoDiv>
+            </>
+          ))}
+          {pedidoInfo.status === `open` && detailsIsOpen && (
+            <Button
+              onClick={cancelPedido}
+              color="warning"
+              variant="contained"
+              sx={{ width: `100%` }}
+            >
+              Cancelar pedido
+            </Button>
+          )}
+
+          {pedidoInfo.status === `complete` && detailsIsOpen && (
+            <Button
+              onClick={refound}
+              color="warning"
+              variant="contained"
+              sx={{ width: `100%` }}
+            >
+              Cancelar pedido
+            </Button>
+          )}
+        </DownBox>
+      </MobileStyledBox>
+    </>
   );
 };
 
