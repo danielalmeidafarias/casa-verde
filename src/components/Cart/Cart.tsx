@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { H1} from "../Home/SignInBox/SignInBox";
+import { H1 } from "../Home/SignInBox/SignInBox";
 import { StyledSection } from "../Ofertas/Ofertas";
 import useCart from "../../hooks/useCart";
 import CartProduct from "./CartProduct";
@@ -39,7 +39,8 @@ const StyledBox = styled(Box)`
   align-items: flex-start;
   position: relative;
   cursor: pointer;
-  background-color: var(--backgroundColor);
+  background-color: var(
+    --backgroundColor);
   border-radius: 10px;
   padding: 20px;
 
@@ -51,7 +52,7 @@ const StyledBox = styled(Box)`
 `;
 
 const H3 = styled(H1)`
-padding: 0;
+  padding: 0;
   text-align: start;
   font-size: 28px;
 `;
@@ -62,16 +63,15 @@ const Span = styled.span`
   &:hover {
     text-decoration: underline;
   }
-  
-`
+`;
 
 const Cart = () => {
   const [totalPrice, setTotalPrice] = useState<number | undefined>();
   const cart = useCart();
 
   const userInfo = useUserInfo();
-  const handlePayment = useHandlePayment(cart, userInfo)
-  const navigate = useNavigate()
+  const handlePayment = useHandlePayment(cart, userInfo);
+  const navigate = useNavigate();
 
   const handleTotalPrice = () => {
     if (cart[0]) {
@@ -98,23 +98,25 @@ const Cart = () => {
           <StyledDiv>
             <div>
               <FlexCart>
-                {
-                  cart[0] ? (
-                    cart.map((product) => (
-                      <CartProduct
-                        userInfo={userInfo}
-                        key={product.id}
-                        id={product.id}
-                        number={product.number}
-                        price={product.price}
-                        name={product.name}
-                      />
-                    ))
-                  ) : 
+                {cart[0] ? (
+                  cart.map((product) => (
+                    <CartProduct
+                      userInfo={userInfo}
+                      key={product.id}
+                      id={product.id}
+                      number={product.number}
+                      price={product.price}
+                      name={product.name}
+                    />
+                  ))
+                ) : (
                   <p>
-                    Seu carrinho está vazio! <Span onClick={() => navigate('/ofertas')}>Vá às compras!!!</Span> 
+                    Seu carrinho está vazio!{" "}
+                    <Span onClick={() => navigate("/ofertas")}>
+                      Vá às compras!!!
+                    </Span>
                   </p>
-                }
+                )}
               </FlexCart>
             </div>
 

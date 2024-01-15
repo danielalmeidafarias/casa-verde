@@ -4,15 +4,15 @@ import { useUserInfo } from "../../hooks/useUserInfo";
 import axios from "axios";
 
 const Admin = () => {
-  const userInfo = useUserInfo()
+  const userInfo = useUserInfo();
 
   const adminLogin = async () => {
-    await axios.get(`http://localhost:3000/admin?adminId=${userInfo?.id}`)
-  }
+    await axios.get(`http://localhost:3000/admin?adminId=${userInfo?.id}`);
+  };
 
   useEffect(() => {
-    adminLogin()
-  }, [userInfo])
+    adminLogin();
+  }, [userInfo]);
 
   return (
     <div

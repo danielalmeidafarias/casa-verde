@@ -86,7 +86,6 @@ const ProductItem = ({
       const file = e.target.files[0];
       const reader = new FileReader();
       reader.onloadend = () => {
-        console.log(reader.result);
         setEditImage(reader.result);
       };
       reader.readAsDataURL(file);
@@ -152,7 +151,6 @@ const ProductItem = ({
               defaultChecked={onSale && true}
               value={editOnSale}
               onChange={(e) => {
-                console.log(e.target.checked);
                 setEditOnSale(e.target.checked);
               }}
             />

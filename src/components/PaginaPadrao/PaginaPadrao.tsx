@@ -6,7 +6,7 @@ const StyledDiv = styled.div`
   width: 100vw;
   height: 100vh;
   position: absolute;
-`
+`;
 
 const PaginaPadrao = () => {
   return (
@@ -15,6 +15,6 @@ const PaginaPadrao = () => {
       <Outlet />
     </StyledDiv>
   );
-}
+};
 
 export default PaginaPadrao;

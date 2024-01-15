@@ -67,7 +67,7 @@ const useAddToCart = ({ userInfo, cart, setCart }: Parameters) => {
           ]);
         } else {
           window.alert("Produto indisponível");
-          window.location.reload()
+          window.location.reload();
         }
 
         localStorage.setItem(
@@ -84,7 +84,6 @@ const useAddToCart = ({ userInfo, cart, setCart }: Parameters) => {
         );
       }
     } else {
-      console.log(userInfo);
       window.alert("Faça login para acessar o carrinho");
     }
   };

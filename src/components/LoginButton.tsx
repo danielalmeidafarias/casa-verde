@@ -30,13 +30,15 @@ const Button = styled.button`
 `;
 
 const LoginButton = () => {
-  const setUserInfo = useSetUserInfo()
-  const userInfo = useUserInfo()
-  const setCart = useSetCart()
+  const setUserInfo = useSetUserInfo();
+  const userInfo = useUserInfo();
+  const setCart = useSetCart();
 
   const setUserCookie = (user: IUser) => {
     const expiresAt = new Date(Date.now() + 86400000).toUTCString();
-    document.cookie = `user=${JSON.stringify(user)}; expires=${expiresAt}; path=/`;
+    document.cookie = `user=${JSON.stringify(
+      user
+    )}; expires=${expiresAt}; path=/`;
   };
 
   useEffect(() => {
@@ -60,20 +62,19 @@ const LoginButton = () => {
               })
               .then((response) => {
                 setUserCookie(response.data);
-                setUserInfo(response.data)
+                setUserInfo(response.data);
               });
           }}
           onError={() => {
             window.alert("Login falhou");
-            console.log("Login Failed");
           }}
         />
       ) : (
         <Button
           onClick={() => {
-            setUserInfo(null)
+            setUserInfo(null);
             useDeleteCookies();
-            setCart([])
+            setCart([]);
           }}
         >
           <CiLogout />

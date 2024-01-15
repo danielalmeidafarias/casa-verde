@@ -30,7 +30,7 @@ const Products = () => {
 
   const userInfo = useUserInfo();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const getPlantas = async () => {
     await axios
@@ -41,12 +41,15 @@ const Products = () => {
       })
       .then((response) => {
         setPlantas(response.data);
-      }).catch(() => {
-        navigate("/")
       })
+      .catch(() => {
+        navigate("/");
+      });
   };
 
-  const addPlanta = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const addPlanta = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
 
     if (!nome) {
@@ -61,19 +64,16 @@ const Products = () => {
     }
 
     await axios
-      .post<IProduct>(
-        `http://localhost:3000/admin/plantas`,
-        {
-          adminId: userInfo?.id,
-          planta: {
-            name: nome,
-            image: imagem,
-            price: preco,
-            onSale: onSale,
-            number: number
-          },
-        }
-      )
+      .post<IProduct>(`http://localhost:3000/admin/plantas`, {
+        adminId: userInfo?.id,
+        planta: {
+          name: nome,
+          image: imagem,
+          price: preco,
+          onSale: onSale,
+          number: number,
+        },
+      })
       .then((response) => {
         if (response.status === 200) {
           window.alert("Produto adicionado com sucesso!");
@@ -97,7 +97,6 @@ const Products = () => {
       const file = e.target.files[0];
       const reader = new FileReader();
       reader.onloadend = () => {
-        console.log(reader.result);
         setImagem(reader.result);
       };
       reader.readAsDataURL(file);

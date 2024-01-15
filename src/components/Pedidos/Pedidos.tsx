@@ -12,9 +12,7 @@ const Pedidos = () => {
 
   const getPedidos = async () => {
     await axios
-      .get<IPedido[]>(
-        `http://localhost:3000/api/pedidos/${userInfo?.id}`
-      )
+      .get<IPedido[]>(`http://localhost:3000/api/pedidos/${userInfo?.id}`)
       .then((response) => {
         setPedidos(response.data);
       });
@@ -31,9 +29,13 @@ const Pedidos = () => {
         <>
           <div>Pedidos de {userInfo.name}</div>
           {pedidos && pedidos[0] ? (
-            pedidos.map((pedido) => <PedidoItem 
-            userInfo={userInfo}
-            pedidoInfo={pedido} key={pedido.id}/>)
+            pedidos.map((pedido) => (
+              <PedidoItem
+                userInfo={userInfo}
+                pedidoInfo={pedido}
+                key={pedido.id}
+              />
+            ))
           ) : (
             <p>
               {"Que pena, parece que você ainda não realizou nenhum pedido :("}

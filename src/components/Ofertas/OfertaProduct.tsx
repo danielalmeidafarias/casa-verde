@@ -63,7 +63,7 @@ const StyledImage = styled.img`
 `;
 
 interface Props extends IProduct {
-  userInfo: IUser | null
+  userInfo: IUser | null;
 }
 
 const OfertaProduct = ({ name, price, image, id, userInfo }: Props) => {
@@ -82,7 +82,7 @@ const OfertaProduct = ({ name, price, image, id, userInfo }: Props) => {
           id: data.id,
           number: data.number,
           price: data.price,
-          name: data.name
+          name: data.name,
         });
       })
       .catch((err: any) => {

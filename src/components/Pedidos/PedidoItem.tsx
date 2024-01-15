@@ -89,7 +89,6 @@ const DownBox = styled.div`
   align-items: center;
   background-color: transparent;
   gap: 10px;
-
 `;
 
 const MobileDownBox = styled.div`
@@ -141,7 +140,6 @@ const PedidoItem = ({ pedidoInfo, userInfo }: Props) => {
   useEffect(() => {
     if (pedidoInfo) {
       const date = new Date(pedidoInfo?.date);
-      console.log(pedidoInfo?.date);
       setPedidoDate(date.toLocaleString());
     }
 
@@ -204,13 +202,15 @@ const PedidoItem = ({ pedidoInfo, userInfo }: Props) => {
         <UpBox>
           <P>
             {detailsIsOpen ? (
-              <FaChevronUp 
-              style={{cursor: "pointer"}}
-              onClick={() => setDetailsIsOpen(!detailsIsOpen)} />
+              <FaChevronUp
+                style={{ cursor: "pointer" }}
+                onClick={() => setDetailsIsOpen(!detailsIsOpen)}
+              />
             ) : (
-              <FaChevronDown 
-              style={{cursor: "pointer"}}
-              onClick={() => setDetailsIsOpen(!detailsIsOpen)} />
+              <FaChevronDown
+                style={{ cursor: "pointer" }}
+                onClick={() => setDetailsIsOpen(!detailsIsOpen)}
+              />
             )}
             {pedidoDate}
           </P>

@@ -16,7 +16,6 @@ const StyledHero = styled.img<{ $rightValue?: number }>`
   position: absolute;
   bottom: 0px;
   right: ${(props) => {
-    console.log(props.$rightValue);
     return props.$rightValue;
   }}px;
 `;

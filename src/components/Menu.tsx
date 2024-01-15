@@ -76,6 +76,7 @@ const Menu = () => {
 
   return (
     <>
+      {/* Menu para telas grandes */}
       <Nav>
         <img src={Logo} alt="Logo Casa Verde" />
         <Ul>
@@ -103,6 +104,7 @@ const Menu = () => {
         <LoginButton />
       </Nav>
 
+      {/* Menu para telas pequenas */}
       <MobileNav>
         <img src={Logo} alt="Logo Casa Verde" />
         <Hamburger
