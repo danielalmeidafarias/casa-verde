@@ -150,7 +150,7 @@ const PedidoItem = ({ pedidoInfo, userInfo }: Props) => {
 
   const cancelPedido = async () => {
     await axios
-      .put(`http://localhost:3000/api/pedidos/${userInfo.id}/cancel`, {
+      .put(`${import.meta.env.VITE_API_URL}/api/pedidos/${userInfo.id}/cancel`, {
         session_id: pedidoInfo.id,
       })
       .then((response) => {
@@ -166,7 +166,7 @@ const PedidoItem = ({ pedidoInfo, userInfo }: Props) => {
 
   const refound = async () => {
     await axios
-      .put(`http://localhost:3000/api/pedidos/${userInfo.id}/refound`, {
+      .put(`${import.meta.env.VITE_API_URL}/api/pedidos/${userInfo.id}/refound`, {
         payment_intent: pedidoInfo.paymentIntent,
       })
       .then((response) => {

@@ -20,7 +20,7 @@ const SendEmail = () => {
   const verifyAdmin = async () => {
     await axios
       .get(
-        `http://localhost:3000/admin/newsletter/send?adminId=${userInfo?.id}`
+        `${import.meta.env.VITE_API_URL}/admin/newsletter/send?adminId=${userInfo?.id}`
       )
       .catch(() => {
         navigate("/");
@@ -33,7 +33,7 @@ const SendEmail = () => {
 
   const sendEmail = async () => {
     await axios
-      .post("http://localhost:3000/admin/newsletter/send", {
+      .post(`${import.meta.env.VITE_API_URL}/admin/newsletter/send`, {
         adminId: userInfo?.id,
         subject: assunto,
         text: conteudo,

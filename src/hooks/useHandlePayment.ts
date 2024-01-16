@@ -7,7 +7,7 @@ const useHandlePayment = (cart: TCart, userInfo: IUser | null) => {
   const setCart = useSetCart();
   return async () => {
     await axios
-      .post(`http://localhost:3000/api/payment`, {
+      .post(`${import.meta.env.VITE_API_URL}/api/payment`, {
         cart: cart,
         userId: userInfo?.id,
       })

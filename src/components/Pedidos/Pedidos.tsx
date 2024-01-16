@@ -12,7 +12,7 @@ const Pedidos = () => {
 
   const getPedidos = async () => {
     await axios
-      .get<IPedido[]>(`http://localhost:3000/api/pedidos/${userInfo?.id}`)
+      .get<IPedido[]>(`${import.meta.env.VITE_API_URL}/api/pedidos/${userInfo?.id}`)
       .then((response) => {
         setPedidos(response.data);
       });

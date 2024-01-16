@@ -43,7 +43,7 @@ const ProductItem = ({
   const deleteItem = async (id: number) => {
     await axios
       .delete(
-        `http://localhost:3000/admin/plantas?id=${id}&adminId=${userInfo?.id}`
+        `${import.meta.env.VITE_API_URL}/admin/plantas?id=${id}&adminId=${userInfo?.id}`
       )
       .then(() => {
         getPlantas();
@@ -54,7 +54,7 @@ const ProductItem = ({
     if (edit) {
       await axios
         .put(
-          `http://localhost:3000/admin/plantas?id=${id}&adminId=${userInfo?.id}`,
+          `${import.meta.env.VITE_API_URL}/admin/plantas?id=${id}&adminId=${userInfo?.id}`,
           {
             plantaAtualizada: {
               name: editName,

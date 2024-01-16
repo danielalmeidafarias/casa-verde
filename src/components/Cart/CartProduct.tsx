@@ -96,7 +96,7 @@ const CartProduct = ({ id, number, userInfo }: Props) => {
 
   const getProduct = async () => {
     await axios
-      .get<IProduct>(`http://localhost:3000/api/plantas/${id}`)
+      .get<IProduct>(`${import.meta.env.VITE_API_URL}/api/plantas/${id}`)
       .then((response) => {
         const data = response.data;
         setName(data.name);
@@ -110,7 +110,7 @@ const CartProduct = ({ id, number, userInfo }: Props) => {
 
   const addProduct = async (plantaID: number) => {
     await axios
-      .get(`http://localhost:3000/api/plantas/${plantaID}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/plantas/${plantaID}`)
       .then((response) => {
         const data = response.data;
         handleAddToCart({
@@ -127,7 +127,7 @@ const CartProduct = ({ id, number, userInfo }: Props) => {
 
   const removeProduct = async (plantaID: number) => {
     await axios
-      .get(`http://localhost:3000/api/plantas/${plantaID}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/plantas/${plantaID}`)
       .then((response) => {
         const data = response.data;
         handleRemoveFromCart({

@@ -54,7 +54,7 @@ const Input = () => {
 
     if (email && isValid) {
       await axios
-        .post("http://localhost:3000/api/newsletter", {
+        .post(`${import.meta.env.VITE_API_URL}/api/newsletter`, {
           email,
         })
         .then(() => {

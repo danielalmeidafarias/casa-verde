@@ -34,7 +34,7 @@ const Products = () => {
 
   const getPlantas = async () => {
     await axios
-      .get(`http://localhost:3000/admin/plantas/?adminId=${userInfo?.id}`, {
+      .get(`${import.meta.env.VITE_API_URL}/admin/plantas/?adminId=${userInfo?.id}`, {
         data: {
           adminId: userInfo?.id,
         },
@@ -64,7 +64,7 @@ const Products = () => {
     }
 
     await axios
-      .post<IProduct>(`http://localhost:3000/admin/plantas`, {
+      .post<IProduct>(`${import.meta.env.VITE_API_URL}/admin/plantas`, {
         adminId: userInfo?.id,
         planta: {
           name: nome,

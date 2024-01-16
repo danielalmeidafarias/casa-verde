@@ -63,7 +63,7 @@ const Ofertas = () => {
 
   const getPlantas = async () => {
     await axios
-      .get<IProduct[]>(`http://localhost:3000/api/plantas`)
+      .get<IProduct[]>(`${import.meta.env.VITE_API_URL}/api/plantas`)
       .then((response) => {
         if (!promoFilter && !textFilter) {
           setProducts(response.data);

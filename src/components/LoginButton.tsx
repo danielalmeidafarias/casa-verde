@@ -57,8 +57,13 @@ const LoginButton = () => {
           size="medium"
           onSuccess={async (credentialResponse) => {
             axios
-              .post("http://localhost:3000/api/auth", {
+              .post(`${import.meta.env.VITE_API_URL}/api/auth`, {
                 credential: credentialResponse.credential,
+              },
+              {
+                headers: {
+                  
+                }
               })
               .then((response) => {
                 setUserCookie(response.data);

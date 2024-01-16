@@ -75,7 +75,7 @@ const OfertaProduct = ({ name, price, image, id, userInfo }: Props) => {
 
   const comprar = async (plantaID: number) => {
     await axios
-      .get(`http://localhost:3000/api/plantas/${plantaID}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/plantas/${plantaID}`)
       .then((response) => {
         const data = response.data;
         handleSetCart({
