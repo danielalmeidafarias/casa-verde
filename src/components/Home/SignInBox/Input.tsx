@@ -58,10 +58,14 @@ const Input = () => {
           email,
         })
         .then(() => {
+          setEmail("");
+
           window.alert("Email registrado com sucesso");
         })
         .catch((err) => {
           if (err.response.status === 409) {
+            setEmail("");
+
             window.alert("Email ja registrado");
           }
         });
