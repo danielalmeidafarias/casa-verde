@@ -1,4 +1,5 @@
 # Front-end Projeto CasaVerde e-commerce
+### back-end: https://github.com/danielalmeidafarias/api-casa-verde/tree/master
 
 ### Página Inicial e Ofertas, Assinatura Newsletter e Login com Google Oauth2
 https://github.com/danielalmeidafarias/casa-verde/assets/79728041/86f237cf-e1dc-4762-b5f8-ae87965e37ef
