@@ -1,6 +1,1 @@
-{
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" },
-    { "source": "/api/(.*)", "destination": "https://nextjs-danielalmeidafarias-projects.vercel.app/" }
-  ]
-}
+{ "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }] }
