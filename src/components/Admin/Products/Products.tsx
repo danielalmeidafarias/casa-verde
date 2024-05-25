@@ -34,7 +34,7 @@ const Products = () => {
 
   const getPlantas = async () => {
     await axios
-      .get(`${import.meta.env.VITE_API_URL}/admin/plantas/?adminId=${userInfo?.id}`, {
+      .get(`${import.meta.env.VITE_API_URL}/admin/plantas?adminId=${userInfo?.id}`, {
         data: {
           adminId: userInfo?.id,
         },
