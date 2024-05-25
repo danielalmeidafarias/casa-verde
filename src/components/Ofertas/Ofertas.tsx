@@ -120,7 +120,7 @@ const Ofertas = () => {
         </FlexDiv>
       </FlexDiv>
       <GridOfertas>
-        {products.map((product) => (
+        {products ? products.map((product) => (
           <OfertaProduct
             userInfo={userInfo}
             key={product.id}
@@ -130,7 +130,7 @@ const Ofertas = () => {
             price={product.price}
             number={product.number}
           />
-        ))}
+        )) : null}
       </GridOfertas>
     </StyledSection>
   );
